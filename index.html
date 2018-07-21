@@ -263,6 +263,189 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/21/Angular-2-自定义指令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davis">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/zs.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Davis">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/21/Angular-2-自定义指令/" itemprop="url">Angular 2+ 自定义指令</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-21T18:57:09+08:00">
+                2018-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/07/21/Angular-2-自定义指令/" class="leancloud_visitors" data-flag-title="Angular 2+ 自定义指令">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Angular-2-指令"><a href="#Angular-2-指令" class="headerlink" title="Angular 2+ 指令"></a>Angular 2+ 指令</h3><h4 id="自定义属性指令"><a href="#自定义属性指令" class="headerlink" title="自定义属性指令"></a>自定义属性指令</h4><blockquote>
+<p>属性指令是改元素的外观、属性、行为的指令，可以指定多个属性指令。</p>
+</blockquote>
+<h5 id="宿主元素：指令所在的元素就是宿主元素。"><a href="#宿主元素：指令所在的元素就是宿主元素。" class="headerlink" title="宿主元素：指令所在的元素就是宿主元素。"></a>宿主元素：指令所在的元素就是宿主元素。</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">appHighlight</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span> //p元素就是宿主元素</span><br><span class="line"><span class="tag">&lt;<span class="name">app-hero</span> <span class="attr">appHighlight</span>&gt;</span><span class="tag">&lt;/<span class="name">app-hero</span>&gt;</span> //app-hero 也是宿主元素</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">appHighlight</span>=<span class="string">"blue"</span> <span class="attr">defaultColor</span>=<span class="string">"red"</span> [<span class="attr">class.bg</span>]=<span class="string">"isBg"</span>&gt;</span> </span><br><span class="line">    this paragraph is displayed because appHighlight is set to false.</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Directive, HostListener, HostBinding, Input, ElementRef &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">    selector: <span class="string">'[appHighlight]'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> AppHighLightDirective &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Input</span>(<span class="string">'appHighlight'</span>) highColor = <span class="string">'yellow'</span>;</span><br><span class="line">    <span class="meta">@Input</span>() defaultColor</span><br><span class="line">    <span class="meta">@HostBinding</span>(<span class="string">'class.bg'</span>) is:<span class="built_in">boolean</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> el: ElementRef</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@HostListener</span>(<span class="string">'mouseenter'</span>) onMouseEnter () &#123;</span><br><span class="line">        <span class="keyword">this</span>.highlight(<span class="keyword">this</span>.highColor);</span><br><span class="line">        <span class="keyword">this</span>.is = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@HostListener</span>(<span class="string">'mouseleave'</span>) onMouseLeave () &#123;</span><br><span class="line">        <span class="keyword">this</span>.highlight(<span class="keyword">this</span>.defaultColor);</span><br><span class="line">        <span class="keyword">this</span>.is = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> highlight(color: <span class="built_in">string</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.el.nativeElement.style.color = color;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>selector</code> 属性选择器，和CSS的选择器类似，但要加上方括号，而组件的选择器不需要方括号。</p>
+<p><code>构造函数</code>  注入的 <code>ElementRef</code> 代表的是宿主元素，由highlight函数也可以看的 出。但是它的属性<code>nativeElement</code> 才真的是可以操作的原生DOM元素。</p>
+<p><code>输入属性</code>  这个和模板语法差不多，一个指令有可能需要外部的数据再做出具体的动作。如上指令，外部给出指定的颜色。根据鼠标移进移出显示不同的外部指定的颜色。</p>
+<ul>
+<li><p>当只有一个输入属性时，可以和指令选择器一样，直接在给指令赋值。但是指令名不能很好的反映该数据时，可以给它一个别名 <code>@Input(&#39;appHighlight&#39;) highColor = &#39;yellow&#39;;</code> 圆括号内的是属性别名。</p>
+</li>
+<li><p>有多个输入属性时，可以直接在宿主元素里加上该属性名并赋值，然后在指令内部再接收，记得加上<code>@input</code> 修饰符。</p>
+</li>
+<li><p>这里有一个点是，属性加上方括号时，右边是表达式，不加是字符串。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> [<span class="attr">appHighlight</span>]=<span class="string">"color='blue'"</span> <span class="attr">defaultColor</span>=<span class="string">"red"</span> [<span class="attr">class.bg</span>]=<span class="string">"isBg"</span>&gt;</span> </span><br><span class="line">    this paragraph is displayed because appHighlight is set to false.</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>@HostBinding</code> 是属性装饰器，用来动态设置宿主元素的属性值。</p>
+<p><code>@HostListener</code> 是属性装饰器，用来为宿主元素添加事件监听。</p>
+<h4 id="自定义结构指令"><a href="#自定义结构指令" class="headerlink" title="自定义结构指令"></a>自定义结构指令</h4><blockquote>
+<p>改元素结构的指令，在物理上添加删除指令所在的元素。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Directive, TemplateRef, ViewContainerRef, Input &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">    selector: <span class="string">'[appUnless]'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> UnlessDirective &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> hasView = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> templateRef: TemplateRef&lt;<span class="built_in">any</span>&gt;,</span></span><br><span class="line"><span class="params">                <span class="keyword">private</span> viewContainerRef: ViewContainerRef</span>) &#123;</span><br><span class="line">                 &#125;</span><br><span class="line">    <span class="meta">@Input</span>() <span class="keyword">set</span> appUnless(condition: <span class="built_in">boolean</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!condition &amp;&amp; !<span class="keyword">this</span>.hasView) &#123;</span><br><span class="line">            <span class="keyword">this</span>.viewContainerRef.createEmbeddedView(<span class="keyword">this</span>.templateRef);</span><br><span class="line">            <span class="keyword">this</span>.hasView = <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (condition &amp;&amp; <span class="keyword">this</span>.hasView) &#123;</span><br><span class="line">            <span class="keyword">this</span>.viewContainerRef.clear();</span><br><span class="line">            <span class="keyword">this</span>.hasView = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> (<span class="attr">click</span>)=<span class="string">"onClick()"</span> <span class="attr">class</span>=<span class="string">"btn btn-info"</span>&gt;</span>Click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> *<span class="attr">appUnless</span>=<span class="string">"condition"</span> <span class="attr">class</span>=<span class="string">"unless a"</span>&gt;</span></span><br><span class="line">  (A) This paragraph is displayed because the condition is false.</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> *<span class="attr">appUnless</span>=<span class="string">"!condition"</span> <span class="attr">class</span>=<span class="string">"unless b"</span>&gt;</span></span><br><span class="line">  (B) Although the condition is true,</span><br><span class="line">  this paragraph is displayed because appUnless is set to false.</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>结构指令在元素上使用都要加 <strong>*</strong>  这上语法糖。如 <code>*appUnless</code>  该指令构造函数上有两属性注入。</p>
+<ul>
+<li><code>TemplateRef</code> 该类是一个模板，当前使用结构形指令时，会在当前位置创建一个<code>&lt;ng-template&gt;</code> 并把宿主元素包括所有子元素都包裹其中。对于<code>&lt;ng-template&gt;</code> 元素 Angular不会主动插入到DOM树中。所以在视图上并看不到该模板内容。</li>
+<li><code>ViewContainerRef</code> 是一个视图容器，可以把<code>&lt;ng-template&gt;</code>  模板视图插入其中，这操作需要指令来做。可以插入一个或多个模板内容。插入后在视图上就可以看到该模板内容。</li>
+</ul>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/04/JavaScript的this的用法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -974,7 +1157,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -985,7 +1168,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -996,7 +1179,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
