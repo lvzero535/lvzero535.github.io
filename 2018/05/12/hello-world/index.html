@@ -743,6 +743,7 @@
   <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
 
   <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/lib/gitalk/md5.min.js"></script>
 
    <script type="text/javascript">
         var gitalk = new Gitalk({
@@ -751,9 +752,10 @@
           repo: 'Gitalk',
           owner: 'lvzero535',
           admin: ['lvzero535'],
-          id: location.pathname,
-          // labels: 'gitalk',
-          labels: 'gitalk'.split(',').filter(l => l),
+          // id: location.pathname,
+          id: md5(location.pathname),
+          labels: 'gitalk',
+          // labels: 'gitalk'.split(',').filter(l => l),
           perPage: 15,
           pagerDirection: 'last',
           createIssueManually: true,
