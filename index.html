@@ -367,39 +367,18 @@
       
         
           
-            <h3 id="Angular-2-指令"><a href="#Angular-2-指令" class="headerlink" title="Angular 2+ 指令"></a>Angular 2+ 指令</h3><h4 id="自定义属性指令"><a href="#自定义属性指令" class="headerlink" title="自定义属性指令"></a>自定义属性指令</h4><blockquote>
-<p>属性指令是改元素的外观、属性、行为的指令，可以指定多个属性指令。</p>
-</blockquote>
-<h5 id="宿主元素：指令所在的元素就是宿主元素。"><a href="#宿主元素：指令所在的元素就是宿主元素。" class="headerlink" title="宿主元素：指令所在的元素就是宿主元素。"></a>宿主元素：指令所在的元素就是宿主元素。</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">appHighlight</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span> //p元素就是宿主元素</span><br><span class="line"><span class="tag">&lt;<span class="name">app-hero</span> <span class="attr">appHighlight</span>&gt;</span><span class="tag">&lt;/<span class="name">app-hero</span>&gt;</span> //app-hero 也是宿主元素</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">appHighlight</span>=<span class="string">"blue"</span> <span class="attr">defaultColor</span>=<span class="string">"red"</span> [<span class="attr">class.bg</span>]=<span class="string">"isBg"</span>&gt;</span> </span><br><span class="line">    this paragraph is displayed because appHighlight is set to false.</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Directive, HostListener, HostBinding, Input, ElementRef &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">    selector: <span class="string">'[appHighlight]'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> AppHighLightDirective &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Input</span>(<span class="string">'appHighlight'</span>) highColor = <span class="string">'yellow'</span>;</span><br><span class="line">    <span class="meta">@Input</span>() defaultColor</span><br><span class="line">    <span class="meta">@HostBinding</span>(<span class="string">'class.bg'</span>) is:<span class="built_in">boolean</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> el: ElementRef</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@HostListener</span>(<span class="string">'mouseenter'</span>) onMouseEnter () &#123;</span><br><span class="line">        <span class="keyword">this</span>.highlight(<span class="keyword">this</span>.highColor);</span><br><span class="line">        <span class="keyword">this</span>.is = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@HostListener</span>(<span class="string">'mouseleave'</span>) onMouseLeave () &#123;</span><br><span class="line">        <span class="keyword">this</span>.highlight(<span class="keyword">this</span>.defaultColor);</span><br><span class="line">        <span class="keyword">this</span>.is = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> highlight(color: <span class="built_in">string</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.el.nativeElement.style.color = color;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>selector</code> 属性选择器，和CSS的选择器类似，但要加上方括号，而组件的选择器不需要方括号。</p>
-<p><code>构造函数</code>  注入的 <code>ElementRef</code> 代表的是宿主元素，由highlight函数也可以看的 出。但是它的属性<code>nativeElement</code> 才真的是可以操作的原生DOM元素。</p>
-<p><code>输入属性</code>  这个和模板语法差不多，一个指令有可能需要外部的数据再做出具体的动作。如上指令，外部给出指定的颜色。根据鼠标移进移出显示不同的外部指定的颜色。</p>
-<ul>
-<li><p>当只有一个输入属性时，可以和指令选择器一样，直接在给指令赋值。但是指令名不能很好的反映该数据时，可以给它一个别名 <code>@Input(&#39;appHighlight&#39;) highColor = &#39;yellow&#39;;</code> 圆括号内的是属性别名。</p>
-</li>
-<li><p>有多个输入属性时，可以直接在宿主元素里加上该属性名并赋值，然后在指令内部再接收，记得加上<code>@input</code> 修饰符。</p>
-</li>
-<li><p>这里有一个点是，属性加上方括号时，右边是表达式，不加是字符串。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> [<span class="attr">appHighlight</span>]=<span class="string">"color='blue'"</span> <span class="attr">defaultColor</span>=<span class="string">"red"</span> [<span class="attr">class.bg</span>]=<span class="string">"isBg"</span>&gt;</span> </span><br><span class="line">    this paragraph is displayed because appHighlight is set to false.</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><code>@HostBinding</code> 是属性装饰器，用来动态设置宿主元素的属性值。</p>
-<p><code>@HostListener</code> 是属性装饰器，用来为宿主元素添加事件监听。</p>
-<h4 id="自定义结构指令"><a href="#自定义结构指令" class="headerlink" title="自定义结构指令"></a>自定义结构指令</h4><blockquote>
-<p>改元素结构的指令，在物理上添加删除指令所在的元素。</p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Directive, TemplateRef, ViewContainerRef, Input &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">    selector: <span class="string">'[appUnless]'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> UnlessDirective &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> hasView = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params"><span class="keyword">private</span> templateRef: TemplateRef&lt;<span class="built_in">any</span>&gt;,</span></span><br><span class="line"><span class="params">                <span class="keyword">private</span> viewContainerRef: ViewContainerRef</span>) &#123;</span><br><span class="line">                 &#125;</span><br><span class="line">    <span class="meta">@Input</span>() <span class="keyword">set</span> appUnless(condition: <span class="built_in">boolean</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!condition &amp;&amp; !<span class="keyword">this</span>.hasView) &#123;</span><br><span class="line">            <span class="keyword">this</span>.viewContainerRef.createEmbeddedView(<span class="keyword">this</span>.templateRef);</span><br><span class="line">            <span class="keyword">this</span>.hasView = <span class="literal">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (condition &amp;&amp; <span class="keyword">this</span>.hasView) &#123;</span><br><span class="line">            <span class="keyword">this</span>.viewContainerRef.clear();</span><br><span class="line">            <span class="keyword">this</span>.hasView = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> (<span class="attr">click</span>)=<span class="string">"onClick()"</span> <span class="attr">class</span>=<span class="string">"btn btn-info"</span>&gt;</span>Click<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> *<span class="attr">appUnless</span>=<span class="string">"condition"</span> <span class="attr">class</span>=<span class="string">"unless a"</span>&gt;</span></span><br><span class="line">  (A) This paragraph is displayed because the condition is false.</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> *<span class="attr">appUnless</span>=<span class="string">"!condition"</span> <span class="attr">class</span>=<span class="string">"unless b"</span>&gt;</span></span><br><span class="line">  (B) Although the condition is true,</span><br><span class="line">  this paragraph is displayed because appUnless is set to false.</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>结构指令在元素上使用都要加 <strong>*</strong>  这上语法糖。如 <code>*appUnless</code>  该指令构造函数上有两属性注入。</p>
-<ul>
-<li><code>TemplateRef</code> 该类是一个模板，当前使用结构形指令时，会在当前位置创建一个<code>&lt;ng-template&gt;</code> 并把宿主元素包括所有子元素都包裹其中。对于<code>&lt;ng-template&gt;</code> 元素 Angular不会主动插入到DOM树中。所以在视图上并看不到该模板内容。</li>
-<li><code>ViewContainerRef</code> 是一个视图容器，可以把<code>&lt;ng-template&gt;</code>  模板视图插入其中，这操作需要指令来做。可以插入一个或多个模板内容。插入后在视图上就可以看到该模板内容。</li>
-</ul>
-</blockquote>
+          Angular 2+ 指令自定义属性指令
+属性指令是改元素的外观、属性、行为的指令，可以指定多个属性指令。
 
-          
+宿主元素：指令所在的元素就是宿主元素。123456&lt;p appHighlight&gt;&lt;/p&gt; //p元素就是宿主元素&lt;app-hero appHighlight&
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/21/Angular-2-自定义指令/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -550,31 +529,19 @@
       
         
           
-            <h3 id="JavaScript的this的用法"><a href="#JavaScript的this的用法" class="headerlink" title="JavaScript的this的用法"></a>JavaScript的this的用法</h3><h4 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h4><blockquote>
-<p>直接调用函数时，不管调用位置如何（函数内或函数外），this都指向全局对象window。</p>
-<p><strong>注意：</strong>在严格模式下，这种用法是不允许，this返回值是undefined</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.x =x;</span><br><span class="line">&#125;</span><br><span class="line">foo(<span class="number">2</span>);</span><br><span class="line"><span class="built_in">console</span>.log(x)<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
-<h4 id="对象调用"><a href="#对象调用" class="headerlink" title="对象调用"></a>对象调用</h4><blockquote>
-<p>当函数作为对象的方法调用时，函数内的this指向当前调用对象</p>
-<p>以下代码中this指向p对象，即当前对象，而不是window</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> n = <span class="string">"true"</span>;</span><br><span class="line"> <span class="keyword">var</span> p = &#123;</span><br><span class="line">     n : <span class="string">"false"</span>,</span><br><span class="line">     m : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">         <span class="built_in">console</span>.log(<span class="keyword">this</span>.n);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">p.m()<span class="comment">//"false"</span></span><br></pre></td></tr></table></figure>
-<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><blockquote>
-<p>在构造函数中，this指向新创建的实例对象。</p>
-<p>以下代码，函数内部的this指向新创建的对象f</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.x = x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> F(<span class="number">5</span>);</span><br><span class="line"><span class="built_in">console</span>.log(f.x);<span class="comment">//5</span></span><br></pre></td></tr></table></figure>
-<h4 id="内部函数"><a href="#内部函数" class="headerlink" title="内部函数"></a>内部函数</h4><blockquote>
-<p>内部函数,相当于直接调用函数所以this指向window</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n = <span class="string">"true"</span>;</span><br><span class="line"><span class="keyword">var</span> p = &#123;</span><br><span class="line">    n : <span class="string">"false"</span>,</span><br><span class="line">    m : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.n);</span><br><span class="line">        &#125;</span><br><span class="line">        say();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">p.m();<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>要使用this指向p对象，代码修改如下</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n = <span class="string">"true"</span>;</span><br><span class="line"><span class="keyword">var</span> p = &#123;</span><br><span class="line">    n : <span class="string">"false"</span>,</span><br><span class="line">    m : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">var</span> say = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(that.n);</span><br><span class="line">        &#125;</span><br><span class="line">        say();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">p.m();<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+          JavaScript的this的用法函数调用
+直接调用函数时，不管调用位置如何（函数内或函数外），this都指向全局对象window。
+注意：在严格模式下，这种用法是不允许，this返回值是undefined
 
-          
+12345function foo(x)&#123;    this.x =x;&#12
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/04/JavaScript的this的用法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -725,30 +692,15 @@
       
         
           
-            <h3 id="Python定时器实现"><a href="#Python定时器实现" class="headerlink" title="Python定时器实现"></a>Python定时器实现</h3><h4 id="时间转换"><a href="#时间转换" class="headerlink" title="时间转换"></a>时间转换</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time, datetime</span><br><span class="line"></span><br><span class="line">times = <span class="number">2017</span><span class="number">-12</span><span class="number">-03</span> <span class="number">14</span>:<span class="number">27</span>:<span class="number">03</span> <span class="comment">#当前时间</span></span><br><span class="line">        </span><br><span class="line"><span class="keyword">print</span> time.time() </span><br><span class="line"><span class="comment"># 当前时间戳</span></span><br><span class="line"><span class="comment">#1512282423.23</span></span><br><span class="line"></span><br><span class="line">struct_time = time.localtime(time.time()) <span class="comment">#时间结构化</span></span><br><span class="line"><span class="keyword">print</span>  struct_time </span><br><span class="line"><span class="comment">#time.struct_time(tm_year=2017, tm_mon=12, tm_mday=3, tm_hour=14, tm_min=27, tm_sec=3, tm_wday=6, tm_yday=337, tm_isdst=0)</span></span><br><span class="line"><span class="comment">#tm_wday,当前星期几，0是星期一，tm_isdst 夏令时间， tm_yday当年的第几天</span></span><br><span class="line"></span><br><span class="line">strtime = time.strftime(<span class="string">'%Y-%m-%d %H:%M:%S'</span>, struct_time)</span><br><span class="line"><span class="keyword">print</span> strtime <span class="comment">#结构化时间转换成字符串</span></span><br><span class="line"><span class="comment">#2017-12-03 14:27:03</span></span><br><span class="line"></span><br><span class="line">struct_time = time.strptime(strtime, <span class="string">'%Y-%m-%d %H:%M:%S'</span>) <span class="comment">#字符串转换成结构化时间</span></span><br><span class="line"><span class="keyword">print</span> struct_time</span><br><span class="line"><span class="comment">#time.struct_time(tm_year=2017, tm_mon=12, tm_mday=3, tm_hour=14, tm_min=27, tm_sec=3, tm_wday=6, tm_yday=337, tm_isdst=0)</span></span><br><span class="line"><span class="comment">#tm_wday,当前星期几，0是星期一，tm_isdst 夏令时间， tm_yday当年的第几天</span></span><br><span class="line"></span><br><span class="line">timestrap = time.mktime(struct_time) <span class="comment">#结构化时间转换成时间戳</span></span><br><span class="line"><span class="keyword">print</span> timestrap</span><br><span class="line"><span class="comment">#1512282423.0</span></span><br><span class="line"></span><br><span class="line">struct_time = time.localtime(timestrap)</span><br><span class="line"><span class="keyword">print</span> struct_time</span><br><span class="line"><span class="keyword">print</span> time.strftime(<span class="string">'%Y-%m-%d %H:%M:%S'</span>, struct_time)</span><br><span class="line"></span><br><span class="line">struct_time = time.strptime(<span class="string">"2017-08-08 12:12"</span>, <span class="string">'%Y-%m-%d %H:%M'</span>)</span><br><span class="line"><span class="keyword">print</span> struct_time</span><br><span class="line"><span class="comment">#time.struct_time(tm_year=2017, tm_mon=8, tm_mday=8, tm_hour=12, tm_min=12, tm_sec=0, tm_wday=1, tm_yday=220, tm_isdst=-1)</span></span><br><span class="line">y,m,d,h,M = struct_time[<span class="number">0</span>:<span class="number">5</span>] <span class="comment">#获取元组前5个元素</span></span><br><span class="line"><span class="keyword">print</span> y,m,d,h,M <span class="comment"># 2017 8 8 12 12</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> datetime.datetime(y,m,d,h,M) <span class="comment">#2017-08-08 12:12:00</span></span><br><span class="line"></span><br><span class="line">datetime.datetime.strptime(<span class="string">"2017-08-08 12:12"</span>, <span class="string">'%Y-%m-%d %H:%M'</span>)</span><br><span class="line"><span class="comment">#字符转换成datetime</span></span><br><span class="line"></span><br><span class="line">now=datetime.datetime.now() <span class="comment">#获取当前时间</span></span><br><span class="line"><span class="keyword">print</span> now <span class="comment">#2017-12-03 14:44:45.056000</span></span><br><span class="line"></span><br><span class="line">sched_Timer=datetime.datetime(<span class="number">2017</span>,<span class="number">2</span>,<span class="number">9</span>,<span class="number">20</span>,<span class="number">20</span>,<span class="number">10</span>)</span><br><span class="line"><span class="keyword">print</span> type(sched_Timer) <span class="comment">#&lt;type 'datetime.datetime'&gt;</span></span><br><span class="line"><span class="keyword">print</span> sched_Timer <span class="comment">#2017-02-09 20:20:10</span></span><br><span class="line"></span><br><span class="line">sched_Timer=sched_Timer + datetime.timedelta(minutes=<span class="number">10</span>)</span><br><span class="line"><span class="keyword">print</span> sched_Timer <span class="comment">#2017-02-09 20:30:10</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#datetime.timedelta(minutes=10) 当前时间加参数里对应的时间，days,hours,minutes,seconds</span></span><br></pre></td></tr></table></figure>
-<h4 id="datetime方式"><a href="#datetime方式" class="headerlink" title="datetime方式"></a>datetime方式</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run_Task</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'hello'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">timerFun</span><span class="params">(sche_timer)</span>:</span></span><br><span class="line">    flag = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>: </span><br><span class="line">        now = datetime.datetime.now()</span><br><span class="line">        <span class="keyword">if</span> now == sche_timer <span class="keyword">and</span> flag == <span class="number">0</span>: </span><br><span class="line">            run_Task()</span><br><span class="line">            flag = <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> flag == <span class="number">1</span>:</span><br><span class="line">                sche_timer = sche_timer + datetime.timedelta(seconds=<span class="number">5</span>)</span><br><span class="line">                flag = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    sche_timer = datetime.datetime(<span class="number">2017</span>, <span class="number">12</span>, <span class="number">3</span>, <span class="number">12</span>, <span class="number">41</span>, <span class="number">30</span>)</span><br><span class="line">    timerFun(sche_timer)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<h4 id="sched方式"><a href="#sched方式" class="headerlink" title="sched方式"></a>sched方式</h4><blockquote>
-<p>schedule这个家伙就像一个预存你要定时执行的任务们儿 的盒子。 schedule.enter就是把你要定时多少秒后执行的任务放到这个盒子里去。而schedule.run就是这时候去run你盒子的所有任务，任务就在这个时刻后，依次相对于这个时刻点的多少秒后运行。如果没有run，那可是不会让盒子的任务被执行。</p>
-<p>为什么每一行输出的最后一个时间数据都是一样的（除了最后一行）？因为他们传入函数的数据是当时运行schedule.enter的那个时间点，并非是你定时运行的那个时刻。</p>
-<p>而输出中“now is  什么什么”的那个时刻，是运行的func函数中的time.time()，所以代表的是实际运行那个任务的时刻，所以不是一样的。</p>
-</blockquote>
-<blockquote>
-<p>schedule.enter(delay, priority, action, arguments)</p>
-<p>第一个参数是一个整数或者float，代表多少秒后执行这个action任务。</p>
-<p>第二个参数priority是优先级，0代表优先级最高，1次之，2次次之…当两个任务是预定在同一个时刻执行时，根据优先级决定谁先执行。</p>
-<p>第三个参数就是你要执行的任务，可以简单的理解成你要执行的函数的函数名。</p>
-<p>第四个参数是你要传入的这个定时执行的action为函数名的函数的参数，最好是用”()”括号来包起来，包起来肯定是不会出错的。其次，当你只传入一个参数时，用括号包起来后，一定要记住再打上一个逗号。即：<strong>schedule.enter(delay, priority, action, (argument1,))</strong> </p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time, sched</span><br><span class="line"></span><br><span class="line">schedule = sched.scheduler( time.time, time.sleep)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(str, flo)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'now is'</span>, time.time(), <span class="string">" | ouput"</span>, str, flo</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> time.time()</span><br><span class="line"></span><br><span class="line">schedule.enter(<span class="number">2</span>, <span class="number">0</span>, func, (<span class="string">"test1"</span>, time.time()))</span><br><span class="line">schedule.enter(<span class="number">2</span>, <span class="number">0</span>, func, (<span class="string">"test2"</span>, time.time()))</span><br><span class="line">schedule.enter(<span class="number">3</span>, <span class="number">0</span>, func, (<span class="string">"test3"</span>, time.time()))</span><br><span class="line">schedule.enter(<span class="number">4</span>, <span class="number">0</span>, func, (<span class="string">"test4"</span>, time.time()))</span><br><span class="line">schedule.run()</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> time.time()</span><br></pre></td></tr></table></figure>
-<h4 id="timer时间器"><a href="#timer时间器" class="headerlink" title="timer时间器"></a>timer时间器</h4><blockquote>
-<p>单线程方式</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time, threading</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_timer</span><span class="params">(key)</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"hello world"</span>, key</span><br><span class="line">    <span class="keyword">global</span> timer</span><br><span class="line">    timer = threading.Timer(<span class="number">5.5</span>, fun_timer,(<span class="string">'seconds'</span>,))</span><br><span class="line">    timer.start()</span><br><span class="line"></span><br><span class="line"><span class="string">"""Call a function after a specified number of seconds"""</span></span><br><span class="line">timer = threading.Timer(<span class="number">1</span>, fun_timer, (<span class="string">"fisrt"</span>,))</span><br><span class="line">timer.start()</span><br><span class="line"></span><br><span class="line">time.sleep(<span class="number">12</span>)</span><br><span class="line">timer.cancel()</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>多线程方式</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> threading <span class="keyword">import</span> Timer</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_time</span><span class="params">( enter_time )</span>:</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'now is'</span>, time.time(), <span class="string">'enter_the_box_time is'</span>, enter_time</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> time.time()</span><br><span class="line">Timer(<span class="number">5</span>, print_time, (time.time(),)).start()</span><br><span class="line">Timer(<span class="number">5</span>, print_time, (time.time(),)).start()</span><br><span class="line"><span class="keyword">print</span> time.time()</span><br></pre></td></tr></table></figure>
-          
+          Python定时器实现时间转换12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152import time, datetimetimes = 2017-12-03 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/13/Python-时间的使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -899,20 +851,19 @@
       
         
           
-            <h3 id="One-word-One-thought"><a href="#One-word-One-thought" class="headerlink" title="One word One thought"></a>One word One thought</h3><blockquote>
-<p>Someone is “one tough cookie” if they can handle difficult situations.<br>如果一个人能够处理困难的情况，你就可以说他是“one tough cookie”。</p>
-</blockquote>
-<blockquote>
-<p>If you describe someone as a tough cookie, you mean that they are unemotional and are not easily hurt by what people say or do.<br>如果你描述一个人是 tough cookie，那么你表示他们是不动情感的，而且不易被别人所说的话所伤害。</p>
-</blockquote>
-<blockquote>
-<p>She really is a tough cookie.<br>她真正是个铁娘子。</p>
-</blockquote>
-<blockquote>
-<p>He’s a tough cookie.<br>他是条硬汉子。</p>
-</blockquote>
+          One word One thought
+Someone is “one tough cookie” if they can handle difficult situations.如果一个人能够处理困难的情况，你就可以说他是“one tough cookie”。
 
-          
+
+If you describe
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/12/你好，HEXO/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1063,17 +1014,15 @@
       
         
           
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/12/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1240,26 +1189,6 @@
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      <i class="fa fa-user"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
-    </span>
-  
-
-  
-    <span class="site-pv">
-      <i class="fa fa-eye"></i>
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      
-    </span>
-  
-</div>
-
 
 
 
