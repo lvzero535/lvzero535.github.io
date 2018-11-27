@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Angular 2+ 自定义指令]]></title>
+    <url>%2F2018%2F07%2F21%2FAngular-2-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[Angular 2+ 指令自定义属性指令 属性指令是改元素的外观、属性、行为的指令，可以指定多个属性指令。 宿主元素：指令所在的元素就是宿主元素。123456&lt;p appHighlight&gt;&lt;/p&gt; //p元素就是宿主元素&lt;app-hero appHighlight&gt;&lt;/app-hero&gt; //app-hero 也是宿主元素&lt;p appHighlight="blue" defaultColor="red" [class.bg]="isBg"&gt; this paragraph is displayed because appHighlight is set to false.&lt;/p&gt; 1234567891011121314151617181920212223242526import &#123; Directive, HostListener, HostBinding, Input, ElementRef &#125; from '@angular/core';@Directive(&#123; selector: '[appHighlight]'&#125;)export class AppHighLightDirective &#123; @Input('appHighlight') highColor = 'yellow'; @Input() defaultColor @HostBinding('class.bg') is:boolean; constructor(private el: ElementRef) &#123;&#125; @HostListener('mouseenter') onMouseEnter () &#123; this.highlight(this.highColor); this.is = true; &#125; @HostListener('mouseleave') onMouseLeave () &#123; this.highlight(this.defaultColor); this.is = false; &#125; private highlight(color: string) &#123; this.el.nativeElement.style.color = color; &#125;&#125; selector 属性选择器，和CSS的选择器类似，但要加上方括号，而组件的选择器不需要方括号。 构造函数 注入的 ElementRef 代表的是宿主元素，由highlight函数也可以看的 出。但是它的属性nativeElement 才真的是可以操作的原生DOM元素。 输入属性 这个和模板语法差不多，一个指令有可能需要外部的数据再做出具体的动作。如上指令，外部给出指定的颜色。根据鼠标移进移出显示不同的外部指定的颜色。 当只有一个输入属性时，可以和指令选择器一样，直接在给指令赋值。但是指令名不能很好的反映该数据时，可以给它一个别名 @Input(&#39;appHighlight&#39;) highColor = &#39;yellow&#39;; 圆括号内的是属性别名。 有多个输入属性时，可以直接在宿主元素里加上该属性名并赋值，然后在指令内部再接收，记得加上@input 修饰符。 这里有一个点是，属性加上方括号时，右边是表达式，不加是字符串。 123&lt;p [appHighlight]="color='blue'" defaultColor="red" [class.bg]="isBg"&gt; this paragraph is displayed because appHighlight is set to false.&lt;/p&gt; @HostBinding 是属性装饰器，用来动态设置宿主元素的属性值。 @HostListener 是属性装饰器，用来为宿主元素添加事件监听。 自定义结构指令 改元素结构的指令，在物理上添加删除指令所在的元素。 123456789101112131415161718192021import &#123; Directive, TemplateRef, ViewContainerRef, Input &#125; from '@angular/core';@Directive(&#123; selector: '[appUnless]'&#125;)export class UnlessDirective &#123; private hasView = false; constructor(private templateRef: TemplateRef&lt;any&gt;, private viewContainerRef: ViewContainerRef) &#123; &#125; @Input() set appUnless(condition: boolean) &#123; if (!condition &amp;&amp; !this.hasView) &#123; this.viewContainerRef.createEmbeddedView(this.templateRef); this.hasView = true; &#125; else if (condition &amp;&amp; this.hasView) &#123; this.viewContainerRef.clear(); this.hasView = false; &#125; &#125; &#125; 123456789&lt;button type="button" (click)="onClick()" class="btn btn-info"&gt;Click&lt;/button&gt;&lt;p *appUnless="condition" class="unless a"&gt; (A) This paragraph is displayed because the condition is false.&lt;/p&gt;&lt;p *appUnless="!condition" class="unless b"&gt; (B) Although the condition is true, this paragraph is displayed because appUnless is set to false.&lt;/p&gt; 结构指令在元素上使用都要加 * 这上语法糖。如 *appUnless 该指令构造函数上有两属性注入。 TemplateRef 该类是一个模板，当前使用结构形指令时，会在当前位置创建一个&lt;ng-template&gt; 并把宿主元素包括所有子元素都包裹其中。对于&lt;ng-template&gt; 元素 Angular不会主动插入到DOM树中。所以在视图上并看不到该模板内容。 ViewContainerRef 是一个视图容器，可以把&lt;ng-template&gt; 模板视图插入其中，这操作需要指令来做。可以插入一个或多个模板内容。插入后在视图上就可以看到该模板内容。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>Angular</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JavaScript的this的用法]]></title>
+    <url>%2F2018%2F06%2F04%2FJavaScript%E7%9A%84this%E7%9A%84%E7%94%A8%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[JavaScript的this的用法函数调用 直接调用函数时，不管调用位置如何（函数内或函数外），this都指向全局对象window。 注意：在严格模式下，这种用法是不允许，this返回值是undefined 12345function foo(x)&#123; this.x =x;&#125;foo(2);console.log(x)//2 对象调用 当函数作为对象的方法调用时，函数内的this指向当前调用对象 以下代码中this指向p对象，即当前对象，而不是window 12345678 var n = "true"; var p = &#123; n : "false", m : function()&#123; console.log(this.n); &#125; &#125;p.m()//"false" 构造函数 在构造函数中，this指向新创建的实例对象。 以下代码，函数内部的this指向新创建的对象f 12345function F(x)&#123; this.x = x;&#125;var f = new F(5);console.log(f.x);//5 内部函数 内部函数,相当于直接调用函数所以this指向window 1234567891011var n = "true";var p = &#123; n : "false", m : function()&#123; var say = function()&#123; console.log(this.n); &#125; say(); &#125;&#125;p.m();//true 要使用this指向p对象，代码修改如下 123456789101112var n = "true";var p = &#123; n : "false", m : function()&#123; var that = this; var say = function()&#123; console.log(that.n); &#125; say(); &#125;&#125;p.m();//false]]></content>
+      <categories>
+        <category>语言</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Python定时器实现]]></title>
+    <url>%2F2018%2F05%2F13%2FPython-%E6%97%B6%E9%97%B4%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[Python定时器实现时间转换12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152import time, datetimetimes = 2017-12-03 14:27:03 #当前时间 print time.time() # 当前时间戳#1512282423.23struct_time = time.localtime(time.time()) #时间结构化print struct_time #time.struct_time(tm_year=2017, tm_mon=12, tm_mday=3, tm_hour=14, tm_min=27, tm_sec=3, tm_wday=6, tm_yday=337, tm_isdst=0)#tm_wday,当前星期几，0是星期一，tm_isdst 夏令时间， tm_yday当年的第几天strtime = time.strftime('%Y-%m-%d %H:%M:%S', struct_time)print strtime #结构化时间转换成字符串#2017-12-03 14:27:03struct_time = time.strptime(strtime, '%Y-%m-%d %H:%M:%S') #字符串转换成结构化时间print struct_time#time.struct_time(tm_year=2017, tm_mon=12, tm_mday=3, tm_hour=14, tm_min=27, tm_sec=3, tm_wday=6, tm_yday=337, tm_isdst=0)#tm_wday,当前星期几，0是星期一，tm_isdst 夏令时间， tm_yday当年的第几天timestrap = time.mktime(struct_time) #结构化时间转换成时间戳print timestrap#1512282423.0struct_time = time.localtime(timestrap)print struct_timeprint time.strftime('%Y-%m-%d %H:%M:%S', struct_time)struct_time = time.strptime("2017-08-08 12:12", '%Y-%m-%d %H:%M')print struct_time#time.struct_time(tm_year=2017, tm_mon=8, tm_mday=8, tm_hour=12, tm_min=12, tm_sec=0, tm_wday=1, tm_yday=220, tm_isdst=-1)y,m,d,h,M = struct_time[0:5] #获取元组前5个元素print y,m,d,h,M # 2017 8 8 12 12print datetime.datetime(y,m,d,h,M) #2017-08-08 12:12:00datetime.datetime.strptime("2017-08-08 12:12", '%Y-%m-%d %H:%M')#字符转换成datetimenow=datetime.datetime.now() #获取当前时间print now #2017-12-03 14:44:45.056000sched_Timer=datetime.datetime(2017,2,9,20,20,10)print type(sched_Timer) #&lt;type 'datetime.datetime'&gt;print sched_Timer #2017-02-09 20:20:10sched_Timer=sched_Timer + datetime.timedelta(minutes=10)print sched_Timer #2017-02-09 20:30:10#datetime.timedelta(minutes=10) 当前时间加参数里对应的时间，days,hours,minutes,seconds datetime方式12345678910111213141516171819202122import datetimedef run_Task(): print 'hello'def timerFun(sche_timer): flag = 0 while True: now = datetime.datetime.now() if now == sche_timer and flag == 0: run_Task() flag = 1 else: if flag == 1: sche_timer = sche_timer + datetime.timedelta(seconds=5) flag = 0def main(): sche_timer = datetime.datetime(2017, 12, 3, 12, 41, 30) timerFun(sche_timer)if __name__ == '__main__': main() sched方式 schedule这个家伙就像一个预存你要定时执行的任务们儿 的盒子。 schedule.enter就是把你要定时多少秒后执行的任务放到这个盒子里去。而schedule.run就是这时候去run你盒子的所有任务，任务就在这个时刻后，依次相对于这个时刻点的多少秒后运行。如果没有run，那可是不会让盒子的任务被执行。 为什么每一行输出的最后一个时间数据都是一样的（除了最后一行）？因为他们传入函数的数据是当时运行schedule.enter的那个时间点，并非是你定时运行的那个时刻。 而输出中“now is 什么什么”的那个时刻，是运行的func函数中的time.time()，所以代表的是实际运行那个任务的时刻，所以不是一样的。 schedule.enter(delay, priority, action, arguments) 第一个参数是一个整数或者float，代表多少秒后执行这个action任务。 第二个参数priority是优先级，0代表优先级最高，1次之，2次次之…当两个任务是预定在同一个时刻执行时，根据优先级决定谁先执行。 第三个参数就是你要执行的任务，可以简单的理解成你要执行的函数的函数名。 第四个参数是你要传入的这个定时执行的action为函数名的函数的参数，最好是用”()”括号来包起来，包起来肯定是不会出错的。其次，当你只传入一个参数时，用括号包起来后，一定要记住再打上一个逗号。即：schedule.enter(delay, priority, action, (argument1,)) 12345678910111213141516import time, schedschedule = sched.scheduler( time.time, time.sleep)def func(str, flo): print 'now is', time.time(), " | ouput", str, floprint time.time()schedule.enter(2, 0, func, ("test1", time.time()))schedule.enter(2, 0, func, ("test2", time.time()))schedule.enter(3, 0, func, ("test3", time.time()))schedule.enter(4, 0, func, ("test4", time.time()))schedule.run()print time.time() timer时间器 单线程方式 1234567891011121314import time, threadingdef fun_timer(key): print "hello world", key global timer timer = threading.Timer(5.5, fun_timer,('seconds',)) timer.start()"""Call a function after a specified number of seconds"""timer = threading.Timer(1, fun_timer, ("fisrt",))timer.start()time.sleep(12)timer.cancel() 多线程方式 12345678910import timefrom threading import Timerdef print_time( enter_time ): print 'now is', time.time(), 'enter_the_box_time is', enter_timeprint time.time()Timer(5, print_time, (time.time(),)).start()Timer(5, print_time, (time.time(),)).start()print time.time()]]></content>
+      <categories>
+        <category>语言</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Words!]]></title>
+    <url>%2F2018%2F05%2F12%2F%E4%BD%A0%E5%A5%BD%EF%BC%8CHEXO%2F</url>
+    <content type="text"><![CDATA[One word One thought Someone is “one tough cookie” if they can handle difficult situations.如果一个人能够处理困难的情况，你就可以说他是“one tough cookie”。 If you describe someone as a tough cookie, you mean that they are unemotional and are not easily hurt by what people say or do.如果你描述一个人是 tough cookie，那么你表示他们是不动情感的，而且不易被别人所说的话所伤害。 She really is a tough cookie.她真正是个铁娘子。 He’s a tough cookie.他是条硬汉子。]]></content>
+      <categories>
+        <category>语言</category>
+      </categories>
+      <tags>
+        <tag>Words</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Quick Start Hexo]]></title>
+    <url>%2F2018%2F05%2F12%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+      <categories>
+        <category>基础</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+</search>
