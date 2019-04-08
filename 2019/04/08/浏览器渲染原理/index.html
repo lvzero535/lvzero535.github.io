@@ -88,9 +88,10 @@
 <meta property="og:description" content="浏览器原理浏览器是属于多进程的。 1、主进程，主控，协调； 2、第三方进程，一个插件对应一个进程； 3、GPU进程，3D绘制； 4、浏览器渲染进程，每个tab对应一个渲染进程，互不影响。 ​    主要是页面渲染、脚本执行、事件处理等。 事件循环主执行栈—&amp;gt; 微任务—&amp;gt;渲染 —&amp;gt; 主执行栈 从输入 RUL 到页面加载完成发生了什么事 DNS解析 TCP连接 发送HTTP请求 浏览">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/04/08/浏览器渲染原理/js_memory.svg">
+<meta property="og:image" content="http://yoursite.com/2019/04/08/浏览器渲染原理/event_log.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/08/浏览器渲染原理/brower_webkit.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/08/浏览器渲染原理/brower_gecko.png">
-<meta property="og:updated_time" content="2019-04-08T07:21:12.612Z">
+<meta property="og:updated_time" content="2019-04-08T10:47:28.820Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器渲染原理">
 <meta name="twitter:description" content="浏览器原理浏览器是属于多进程的。 1、主进程，主控，协调； 2、第三方进程，一个插件对应一个进程； 3、GPU进程，3D绘制； 4、浏览器渲染进程，每个tab对应一个渲染进程，互不影响。 ​    主要是页面渲染、脚本执行、事件处理等。 事件循环主执行栈—&amp;gt; 微任务—&amp;gt;渲染 —&amp;gt; 主执行栈 从输入 RUL 到页面加载完成发生了什么事 DNS解析 TCP连接 发送HTTP请求 浏览">
@@ -485,7 +486,7 @@
 <p>2、解析HTML生成DOM树。</p>
 <p>3、解析CSS生成CSSOM树。</p>
 <p>4、将DOM树和CSSOM树结合生成渲染树。</p>
-<p>​    生成渲染树的过程应该是对各个元素的位置大小计算，还有图层的划分，即是布局。</p>
+<p>​    生成渲染树的过程应该是对各个元素的位置大小计算，还有图层的划分，即是布局。<br><img src="/2019/04/08/浏览器渲染原理/event_log.png" alt="基本概念"></p>
 <p>5、绘制、合成这些图层然后展示。</p>
 <p><strong>webkit渲染过程</strong></p>
 <p><img src="/2019/04/08/浏览器渲染原理/brower_webkit.png" alt="基本概念"></p>
