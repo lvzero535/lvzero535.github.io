@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/04/15/JS执行过程/script_load.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/04/15/JS执行过程/JS事件循环.png">
-<meta property="og:updated_time" content="2019-04-15T15:24:00.305Z">
+<meta property="og:updated_time" content="2019-04-15T15:27:46.936Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS执行过程">
 <meta name="twitter:description" content="JavaScript运行过程加载每个script标签的代码是独立的，但是共享全局作用域。如果有多个script标签，其中一个发生并抛出错误时并不会影响其他script标签代码运行。  &amp;lt;script src=&amp;#39;&amp;#39;&amp;gt; 立即加载执行，阻塞HTML解析渲染。 &amp;lt;script defer src=&amp;#39;&amp;#39;&amp;gt; 加载和HTML解析并行，但要等HTML解析完成">
@@ -425,13 +425,11 @@
 <h3 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h3><p>上面说到作用域的变量被垃圾回收器回收，那变量什么时候会被回收呢？</p>
 <p><code>JavaScript</code>在定义变量时会自动分配内存，当变量不再使用时，会被回收，但是怎么样判断变量不再使用呢？</p>
 <p><code>JavaScript引擎</code>有两种回收算法。</p>
-<p>####引用计数算法</p>
-<p>定义变量后，可能有其他变量引用，也可能没有。当有其他变量引用时，该变量被引用次数为1次引用，被引用多少次就计数多少次，当释放引用后就减少引用次数，当引用为零时被回收。</p>
+<h4 id="引用计数算法"><a href="#引用计数算法" class="headerlink" title="引用计数算法"></a>引用计数算法</h4><p>定义变量后，可能有其他变量引用，也可能没有。当有其他变量引用时，该变量被引用次数为1次引用，被引用多少次就计数多少次，当释放引用后就减少引用次数，当引用为零时被回收。</p>
 <p>这个算法有个限制那就是<strong>循环引用</strong> 时，不会被回收，这就有可能出现内存益出的情况。</p>
 <p>如<code>IE6，8</code>使用计数方式对DOM对象回收时，常造成循环引用发生内存泄漏。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div;</span><br><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    div = <span class="built_in">document</span>.getElementById(<span class="string">'idtest'</span>);</span><br><span class="line">    div.dataEle = div;</span><br><span class="line">    div.lotsOfData = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">10000</span>).join(<span class="string">"*"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>####标记清除法</p>
-<p>引用计数算法的限制，标记清除法则不存在这个问题，现代所有浏览器都使用了该算法作为垃圾回收算法。</p>
+<h4 id="标记清除法"><a href="#标记清除法" class="headerlink" title="标记清除法"></a>标记清除法</h4><p>引用计数算法的限制，标记清除法则不存在这个问题，现代所有浏览器都使用了该算法作为垃圾回收算法。</p>
 <p>这个算法就是定期从全局作用域开始查找所引用的对象，还有对象引用的对象。垃圾回收器将找到所有可以获得的对象和不可获取的对象。不可获得的对象被当垃圾回收。这就像一棵树，从根开始向上找，能找到的都在树上，找不到的都在树下，树下的就是垃圾。</p>
 <p>这里也有一个限制就是无法从根上找到的对象都被回收，这也是算法的核心。当然这种可用的对象应用场景很少，所以不太用关心。</p>
 <h3 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h3><p>JS引擎是单线程的，不存在并发编程，但JS存在异步编程，通过事件循环实现的。</p>
@@ -622,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript运行过程"><span class="nav-number">1.</span> <span class="nav-text">JavaScript运行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载"><span class="nav-number">2.</span> <span class="nav-text">加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">3.</span> <span class="nav-text">作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一个阶段"><span class="nav-number">3.1.</span> <span class="nav-text">第一个阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二个阶段"><span class="nav-number">3.2.</span> <span class="nav-text">第二个阶段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收器"><span class="nav-number">4.</span> <span class="nav-text">垃圾回收器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件循环"><span class="nav-number">5.</span> <span class="nav-text">事件循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript运行过程"><span class="nav-number">1.</span> <span class="nav-text">JavaScript运行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载"><span class="nav-number">2.</span> <span class="nav-text">加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">3.</span> <span class="nav-text">作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一个阶段"><span class="nav-number">3.1.</span> <span class="nav-text">第一个阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二个阶段"><span class="nav-number">3.2.</span> <span class="nav-text">第二个阶段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收器"><span class="nav-number">4.</span> <span class="nav-text">垃圾回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引用计数算法"><span class="nav-number">4.1.</span> <span class="nav-text">引用计数算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标记清除法"><span class="nav-number">4.2.</span> <span class="nav-text">标记清除法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件循环"><span class="nav-number">5.</span> <span class="nav-text">事件循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
             
 
           </div>
