@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -80,7 +80,7 @@
 
 
 <meta name="description" content="JavaScript运行过程加载每个script标签的代码是独立的，但是共享全局作用域。如果有多个script标签，其中一个发生并抛出错误时并不会影响其他script标签代码运行。  &amp;lt;script src=&amp;#39;&amp;#39;&amp;gt; 立即加载执行，阻塞HTML解析渲染。 &amp;lt;script defer src=&amp;#39;&amp;#39;&amp;gt; 加载和HTML解析并行，但要等HTML解析完成">
-<meta name="keywords" content="博客，记生">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS执行过程">
 <meta property="og:url" content="http://yoursite.com/2019/04/15/JS执行过程/index.html">
@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2019/04/15/JS执行过程/script_load.jpg">
 <meta property="og:image" content="http://yoursite.com/2019/04/15/JS执行过程/JS事件循环.png">
-<meta property="og:updated_time" content="2019-04-15T15:18:50.958Z">
+<meta property="og:updated_time" content="2019-04-15T15:24:00.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS执行过程">
 <meta name="twitter:description" content="JavaScript运行过程加载每个script标签的代码是独立的，但是共享全局作用域。如果有多个script标签，其中一个发生并抛出错误时并不会影响其他script标签代码运行。  &amp;lt;script src=&amp;#39;&amp;#39;&amp;gt; 立即加载执行，阻塞HTML解析渲染。 &amp;lt;script defer src=&amp;#39;&amp;#39;&amp;gt; 加载和HTML解析并行，但要等HTML解析完成">
@@ -340,6 +340,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/语言/" itemprop="url" rel="index">
+                    <span itemprop="name">语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -386,14 +408,11 @@
 </ul>
 <p><img src="/2019/04/15/JS执行过程/script_load.jpg" alt=""></p>
 <h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>加载完代码后，开始运行，这个运行根据个人理解是有两个阶段的，这两个阶段过程就是所谓的<code>VO(变量对象), AO(活动对象)</code> 。</p>
-<p>####第一个阶段</p>
-<p>这是代码预编译阶段，主要是词法、语法分析，确定作用域（也就执行上下文）。</p>
+<h4 id="第一个阶段"><a href="#第一个阶段" class="headerlink" title="第一个阶段"></a>第一个阶段</h4><p>这是代码预编译阶段，主要是词法、语法分析，确定作用域（也就执行上下文）。</p>
 <blockquote>
 <p><strong>注意:</strong>作用域是在这个时候，而不是在执行的时候确定的。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">&gt; <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&gt;     <span class="built_in">console</span>.log(a); <span class="comment">// 2，作用域在第一阶段已确定</span></span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&gt; 	<span class="keyword">var</span> a = <span class="number">4</span>;</span><br><span class="line">&gt;     <span class="built_in">console</span>.log(a); <span class="comment">// 4</span></span><br><span class="line">&gt;     bar();</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; foo();</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
-<blockquote>
-</blockquote>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 2，作用域在第一阶段已确定</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(a); <span class="comment">// 4</span></span><br><span class="line">    bar();</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
 <p>首先是创建全局的执行上下文，也就是全局作用域，声明变量。这个时候只是声明变量而已，还没开始赋值，这个声明而没有赋值就说的是变量提升，但是函数的提升优先级比变量高。这些变量包含基本类型，对象，函数等，声明变量时，这些变量的变量名会作为作用域的属性名。作用域包含变量属性名的也叫<code>VO 变量对象</code> 。如果声明变量时类型是<code>Function</code> 的，会再创建一个作用域，这个作用域里的代码分析和全局作用域的一样，只不过这个<code>function</code>的作用域是挂在全局作用域上的，如果函数里还有函数过程一样，内嵌函数作用域挂外层函数的作用域上，这就形成了<strong>作用域链</strong>。</p>
 <p>在<code>JavaScript</code> 里作用域只有全局作用域和局部作用域（函数作用域），<code>eval和with</code> 也可以创建作用域，但不常用，最好也不要用。<code>ES6</code>之前是没有块级作用域的，但在<code>ES6</code>的时候加了<code>let const</code>这两个后就有了块级作用域的说法了，且用这两个声明的变量不存在变量提升，详情请看<code>ES6</code>语法</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">2</span>; <span class="comment">// 执行阶段才赋值</span></span><br><span class="line"><span class="keyword">var</span> a; <span class="comment">// 编译阶段就声明了</span></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// 2;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ============================================</span></span><br><span class="line"><span class="comment">// 函数的优先级更高</span></span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// foo Function</span></span><br><span class="line"><span class="built_in">console</span>.log(foo());<span class="comment">// 3</span></span><br><span class="line"><span class="keyword">var</span> foo = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(foo()); <span class="comment">// 报错：Uncaught TypeError: foo is not a function	</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(foo()); <span class="comment">//报错：Uncaught TypeError: foo is not a function</span></span><br></pre></td></tr></table></figure>
@@ -401,10 +420,8 @@
 <p>首先把全局作用域推入栈中，开始对变量赋值然后执行代码，也就是说变量值的确定是在执行阶段确定的，这个赋值就是所谓的<code>（VO =&gt; AO）</code>的转变，这是作用域变量对象到活动对象的转变。<strong>执行过程遇到作用域会继续把它推入栈中，形成一个作用域栈队列</strong>。栈的特点是先进后出，当最上面的作用域对应的函数执行完成，会移出栈的队列，直到最底的全局作用域移除，整个栈队列为空，这时程序执行完成。</p>
 <blockquote>
 <p>注意：正常来说，作用域移出栈后，作用域里所有变量所分配的内存会被当垃圾回收，然后作用域被销毁。然而这里有一种情况就是，这个作用域移出栈外是临时的，因为这个作用域内还有变量被子作用域的变量所引用，不能被垃圾回收器回收，当子作用域被激活时，移出栈外的父作用域和子作用域同时又会被推入栈中。这就是说<strong>闭包</strong>的情况。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; <span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&gt;     <span class="keyword">var</span> a = <span class="number">2</span>; <span class="comment">// 被 bar 的作用域引用，就是foo的子作用域（好像是没有子作用域的说法）</span></span><br><span class="line">&gt;     <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&gt;         <span class="keyword">return</span> a;</span><br><span class="line">&gt;     &#125;</span><br><span class="line">&gt;     <span class="keyword">return</span> bar;</span><br><span class="line">&gt; &#125;</span><br><span class="line">&gt; <span class="keyword">var</span> baz = foo();</span><br><span class="line">&gt; <span class="built_in">console</span>.log(baz()) <span class="comment">// 2;</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </blockquote>
-<blockquote>
-</blockquote>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">2</span>; <span class="comment">// 被 bar 的作用域引用，就是foo的子作用域（好像是没有子作用域的说法）</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> bar;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> baz = foo();</span><br><span class="line"><span class="built_in">console</span>.log(baz()) <span class="comment">// 2;</span></span><br></pre></td></tr></table></figure>
 <h3 id="垃圾回收器"><a href="#垃圾回收器" class="headerlink" title="垃圾回收器"></a>垃圾回收器</h3><p>上面说到作用域的变量被垃圾回收器回收，那变量什么时候会被回收呢？</p>
 <p><code>JavaScript</code>在定义变量时会自动分配内存，当变量不再使用时，会被回收，但是怎么样判断变量不再使用呢？</p>
 <p><code>JavaScript引擎</code>有两种回收算法。</p>
@@ -443,6 +460,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
       
 
       
@@ -599,7 +622,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript运行过程"><span class="nav-number">1.</span> <span class="nav-text">JavaScript运行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载"><span class="nav-number">2.</span> <span class="nav-text">加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">3.</span> <span class="nav-text">作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第二个阶段"><span class="nav-number">3.1.</span> <span class="nav-text">第二个阶段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收器"><span class="nav-number">4.</span> <span class="nav-text">垃圾回收器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件循环"><span class="nav-number">5.</span> <span class="nav-text">事件循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript运行过程"><span class="nav-number">1.</span> <span class="nav-text">JavaScript运行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加载"><span class="nav-number">2.</span> <span class="nav-text">加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域"><span class="nav-number">3.</span> <span class="nav-text">作用域</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一个阶段"><span class="nav-number">3.1.</span> <span class="nav-text">第一个阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二个阶段"><span class="nav-number">3.2.</span> <span class="nav-text">第二个阶段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收器"><span class="nav-number">4.</span> <span class="nav-text">垃圾回收器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件循环"><span class="nav-number">5.</span> <span class="nav-text">事件循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">6.</span> <span class="nav-text">最后</span></a></li></ol></div>
             
 
           </div>
