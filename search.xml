@@ -8,7 +8,11 @@
         <category>Node</category>
       </categories>
       <tags>
-        <tag>Koa, typescript, mysql, node, typeorm</tag>
+        <tag>Koa</tag>
+        <tag>typescript</tag>
+        <tag>mysql</tag>
+        <tag>node</tag>
+        <tag>typeorm</tag>
       </tags>
   </entry>
   <entry>
