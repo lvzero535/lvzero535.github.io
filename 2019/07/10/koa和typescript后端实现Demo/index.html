@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo," />
+  <meta name="keywords" content="Koa, typescript, mysql, node, typeorm," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords" content="Hexo">
+<meta name="description" content="前言对TypeScript 神往已久，看过Angular 4+ 写过小Demo，没用它写过后端，一直想通过TypeScript写一个Demo后端，听说Nestjs 和Java 的Spring 有的一拼，但没上手，只能用Koa 来凑，后续用Nestjs补上。这只是一个后端，没有前端页面。 安装依赖1234npm intall koa koa-bodyparser koa-routernpm inta">
+<meta name="keywords" content="Koa, typescript, mysql, node, typeorm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Quick Start Hexo">
-<meta property="og:url" content="http://yoursite.com/2018/05/12/hello-world/index.html">
+<meta property="og:title" content="koa和typescript后端实现Demo">
+<meta property="og:url" content="http://yoursite.com/2019/07/10/koa和typescript后端实现Demo/index.html">
 <meta property="og:site_name" content="Davis">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="前言对TypeScript 神往已久，看过Angular 4+ 写过小Demo，没用它写过后端，一直想通过TypeScript写一个Demo后端，听说Nestjs 和Java 的Spring 有的一拼，但没上手，只能用Koa 来凑，后续用Nestjs补上。这只是一个后端，没有前端页面。 安装依赖1234npm intall koa koa-bodyparser koa-routernpm inta">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-13T15:14:06.492Z">
+<meta property="og:updated_time" content="2019-07-10T15:09:59.641Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Quick Start Hexo">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="koa和typescript后端实现Demo">
+<meta name="twitter:description" content="前言对TypeScript 神往已久，看过Angular 4+ 写过小Demo，没用它写过后端，一直想通过TypeScript写一个Demo后端，听说Nestjs 和Java 的Spring 有的一拼，但没上手，只能用Koa 来凑，后续用Nestjs补上。这只是一个后端，没有前端页面。 安装依赖1234npm intall koa koa-bodyparser koa-routernpm inta">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/12/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/07/10/koa和typescript后端实现Demo/"/>
 
 
 
 
 
-  <title>Quick Start Hexo | Davis</title>
+  <title>koa和typescript后端实现Demo | Davis</title>
   
 
 
@@ -297,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/12/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/koa和typescript后端实现Demo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Davis">
@@ -314,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Quick Start Hexo</h1>
+          <h1 class="post-title" itemprop="name headline">koa和typescript后端实现Demo</h1>
         
 
         <div class="post-meta">
@@ -326,8 +326,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T14:42:44+08:00">
-                2018-05-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-10T23:07:21+08:00">
+                2019-07-10
               </time>
             
 
@@ -349,8 +349,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/基础/" itemprop="url" rel="index">
-                    <span itemprop="name">基础</span>
+                  <a href="/categories/Node/" itemprop="url" rel="index">
+                    <span itemprop="name">Node</span>
                   </a>
                 </span>
 
@@ -366,7 +366,7 @@
 
           
           
-             <span id="/2018/05/12/hello-world/" class="leancloud_visitors" data-flag-title="Quick Start Hexo">
+             <span id="/2019/07/10/koa和typescript后端实现Demo/" class="leancloud_visitors" data-flag-title="koa和typescript后端实现Demo">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -397,15 +397,33 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>对<code>TypeScript</code> 神往已久，看过<code>Angular 4+</code> 写过小Demo，没用它写过后端，一直想通过<code>TypeScript</code>写一个Demo后端，听说<code>Nestjs</code> 和<code>Java</code> 的<code>Spring</code> 有的一拼，但没上手，只能用<code>Koa</code> 来凑，后续用<code>Nestjs</code>补上。这只是一个后端，没有前端页面。</p>
+<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm intall koa koa-bodyparser koa-router</span><br><span class="line">npm intall typeorm reflect-metadata mysql2</span><br><span class="line">npm install @types/koa @types/koa-bodyparser @types/koa-router -D</span><br><span class="line">npm install nodemon ts-node typescript -D</span><br></pre></td></tr></table></figure>
+<p>依赖中值得注意的是：</p>
+<ul>
+<li><p><code>nodemon</code> 改动代码后node启动的服务器不会自动刷新，修改后的代码就不生效，要重启才生效。这个工具就是实时监控代码改变后自动重启服务器的。详情看：</p>
+<p><a href="https://github.com/remy/nodemon" target="_blank" rel="noopener">https://github.com/remy/nodemon</a></p>
+</li>
+</ul>
+<ul>
+<li><p><code>ts-node`</code>typescript`代码正常来说要转译才可以运行，但是这个工具提供了运行环境。</p>
+</li>
+<li><p><code>reflect-metadata</code> <code>typeorm</code> 需要<code>ES7</code> 装饰器，需要这个依赖。由于<code>typescript</code>的装饰器是实验功能，所以在<code>tsconfig.json</code> 时要配置，不然报错。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">"emitDecoratorMetadata": true,</span><br><span class="line">"experimentalDecorators": true</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>第一步，连接数据库，启动服务监制商品，连接是全局的，详情看 <a href="https://github.com/typeorm/typeorm" target="_blank" rel="noopener">https://github.com/typeorm/typeorm</a></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Koa <span class="keyword">from</span> <span class="string">'koa'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Router <span class="keyword">from</span> <span class="string">'koa-router'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> bodyParser <span class="keyword">from</span> <span class="string">'koa-bodyparser'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createConnection &#125; <span class="keyword">from</span> <span class="string">'typeorm'</span>;</span><br><span class="line"><span class="keyword">import</span> User <span class="keyword">from</span> <span class="string">'./entities/user'</span>;</span><br><span class="line"><span class="keyword">import</span> routes <span class="keyword">from</span> <span class="string">'./routes'</span>;</span><br><span class="line"></span><br><span class="line">createConnection(&#123;</span><br><span class="line">  <span class="keyword">type</span>: <span class="string">"mysql"</span>,</span><br><span class="line">  host: <span class="string">"localhost"</span>,</span><br><span class="line">  port: <span class="number">3306</span>,</span><br><span class="line">  username: <span class="string">"username"</span>,</span><br><span class="line">  password: <span class="string">"password"</span>,</span><br><span class="line">  database: <span class="string">"database"</span>,</span><br><span class="line">  entities: [</span><br><span class="line">    User <span class="comment">// 实体对象</span></span><br><span class="line">  ],</span><br><span class="line">  synchronize: <span class="literal">true</span>,</span><br><span class="line">  logging: <span class="literal">false</span></span><br><span class="line">&#125;).then(<span class="function"><span class="params">connection</span> =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line">  app.use(bodyParser());</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> router = <span class="keyword">new</span> Router();</span><br><span class="line">  router.use(routes.routes());</span><br><span class="line">  app.use(router.routes()).use(router.allowedMethods());</span><br><span class="line">  </span><br><span class="line">  app.listen(<span class="number">8888</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'starting -------'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;).catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'typeorm connect failed,'</span>, err))</span><br></pre></td></tr></table></figure>
+<p>第二步是，定义表实体，装饰器详情看<code>typeorm</code>文档</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Entity, PrimaryGeneratedColumn, Column &#125; <span class="keyword">from</span> <span class="string">'typeorm'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> User &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@PrimaryGeneratedColumn</span>(<span class="string">'uuid'</span>)</span><br><span class="line">  id: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123;</span><br><span class="line">    length: <span class="number">20</span></span><br><span class="line">  &#125;)</span><br><span class="line">  username: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123;</span><br><span class="line">    length: <span class="number">40</span></span><br><span class="line">  &#125;)</span><br><span class="line">  password: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123;</span><br><span class="line">    length: <span class="number">11</span></span><br><span class="line">  &#125;)</span><br><span class="line">  phone: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123;</span><br><span class="line">    length: <span class="number">40</span></span><br><span class="line">  &#125;)</span><br><span class="line">  email: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Column</span>(&#123;</span><br><span class="line">    length: <span class="number">1</span></span><br><span class="line">  &#125;)</span><br><span class="line">  gender: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第三步是写操作数据库的实现</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// service 直接操作实体对象就可以，像java的hibernate</span></span><br><span class="line"><span class="keyword">import</span> &#123; Repository, getRepository &#125; <span class="keyword">from</span> <span class="string">"typeorm"</span>;</span><br><span class="line"><span class="keyword">import</span> User <span class="keyword">from</span> <span class="string">"../entities/user"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> UserService &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> repositoryUser(): Repository&lt;User&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> getRepository(User);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> getUsers() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.repositoryUser().find();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> getUserById(id: <span class="built_in">string</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.repositoryUser().findOne(id);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> addAndUpdateUser(user: User) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.repositoryUser().save(user);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> deleteUser(user: User) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.repositoryUser().remove(user);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 控制器，路由过来的请求处理</span></span><br><span class="line"><span class="keyword">import</span> &#123; BaseContext &#125; <span class="keyword">from</span> <span class="string">"koa"</span>;</span><br><span class="line"><span class="keyword">import</span> UserService <span class="keyword">from</span> <span class="string">"./service"</span>;</span><br><span class="line"><span class="keyword">import</span> User <span class="keyword">from</span> <span class="string">"../entities/user"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> UserController &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> getUsers(ctx: BaseContext) &#123;</span><br><span class="line">    <span class="keyword">const</span> users: User[] = <span class="keyword">await</span> UserService.getUsers()</span><br><span class="line">    ctx.status = <span class="number">200</span>;</span><br><span class="line">    ctx.body = users;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> getUserById(ctx: BaseContext) &#123;</span><br><span class="line">    ctx.status = <span class="number">200</span>;</span><br><span class="line">    ctx.body = <span class="keyword">await</span> UserService.getUserById(ctx.params.id);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> addUser(ctx: BaseContext) &#123;</span><br><span class="line">    <span class="keyword">const</span> user: User = ctx.request.body;</span><br><span class="line">    ctx.status = <span class="number">200</span>; </span><br><span class="line">    ctx.body = <span class="keyword">await</span> UserService.addAndUpdateUser(user);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> updateUser(ctx: BaseContext) &#123;</span><br><span class="line">    <span class="keyword">const</span> findUser = <span class="keyword">await</span> UserService.getUserById(ctx.params.id);</span><br><span class="line">    <span class="keyword">if</span>(!findUser) &#123;</span><br><span class="line">      ctx.status = <span class="number">400</span>;</span><br><span class="line">      ctx.body = <span class="string">'user is not exists!'</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      ctx.status = <span class="number">200</span>; </span><br><span class="line">      ctx.body = <span class="keyword">await</span> UserService.addAndUpdateUser(<span class="built_in">Object</span>.assign(findUser, ctx.request.body));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">async</span> deleteUser(ctx: BaseContext) &#123;</span><br><span class="line">    <span class="keyword">const</span> findUser = <span class="keyword">await</span> UserService.getUserById(ctx.params.id);</span><br><span class="line">    <span class="keyword">if</span>(!findUser) &#123;</span><br><span class="line">      ctx.status = <span class="number">400</span>;</span><br><span class="line">      ctx.body = <span class="string">'user is not exists!'</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      ctx.status = <span class="number">204</span>; </span><br><span class="line">      <span class="keyword">await</span> UserService.deleteUser(findUser);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 路由定义，符合REST Ful规范</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Router <span class="keyword">from</span> <span class="string">'koa-router'</span>;</span><br><span class="line"><span class="keyword">import</span> controller <span class="keyword">from</span> <span class="string">'./controller'</span>;</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> Router();</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/users'</span>, controller.getUsers);</span><br><span class="line">router.get(<span class="string">'/users/:id'</span>, controller.getUserById);</span><br><span class="line">router.post(<span class="string">'/users'</span>, controller.addUser);</span><br><span class="line">router.put(<span class="string">'/users/:id'</span>, controller.updateUser);</span><br><span class="line">router.delete(<span class="string">'/users/:id'</span>, controller.deleteUser);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router;</span><br></pre></td></tr></table></figure>
+<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><p>启动 <code>npm start</code> </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[nodemon] <span class="number">1.19</span><span class="number">.1</span></span><br><span class="line">[nodemon] to restart at any time, enter <span class="string">`rs`</span></span><br><span class="line">[nodemon] watching: f:\ProcedureDocument\CodeHome\js\node\koa-ts\server<span class="comment">/**/</span>*</span><br><span class="line">[nodemon] starting <span class="string">`ts-node ./server/index.ts`</span></span><br></pre></td></tr></table></figure>
+<p>最后用Postman测试各接口没问题。</p>
+<p>这是简单的实现，什么都没有，只有接口，没有权限控制，没有测试，没有前端，当然这是为<code>nestjs</code>铺垫，当然后面有时间会补齐。</p>
 
       
     </div>
@@ -423,7 +441,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+            <a href="/tags/Koa-typescript-mysql-node-typeorm/" rel="tag"># Koa, typescript, mysql, node, typeorm</a>
           
         </div>
       
@@ -436,15 +454,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/04/15/JS执行过程/" rel="next" title="JS执行过程">
+                <i class="fa fa-chevron-left"></i> JS执行过程
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/12/你好，HEXO/" rel="prev" title="Words!">
-                Words! <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -604,7 +622,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖"><span class="nav-number">2.</span> <span class="nav-text">安装依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实践"><span class="nav-number">4.</span> <span class="nav-text">实践</span></a></li></ol></div>
             
 
           </div>
