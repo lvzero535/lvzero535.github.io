@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="给时间留点痕迹，不至于空白。">
-<meta name="keywords" content="博客，记生">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Davis">
-<meta property="og:url" content="http://yoursite.com/archives/2019/01/index.html">
+<meta name="description" content="JavaScript防抖防抖就是持续触发的事件中，最后一个事件触发时在一定时间周期后再执行这个事件。 也就是说，每次触发事件，如果这个事件还没执行，那么之前触发的事件会清除，以最后一个事件为主，等待的时间会重新开始。 当然也会分第一次是否执行。 第一版简单的实现 1234567891011// 第一版，时间戳, 默认是首次执行的function debounce(fun, wait) &amp;#123;">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript防抖">
+<meta property="og:url" content="http://yoursite.com/2019/07/27/JavaScript防抖/index.html">
 <meta property="og:site_name" content="Davis">
-<meta property="og:description" content="给时间留点痕迹，不至于空白。">
+<meta property="og:description" content="JavaScript防抖防抖就是持续触发的事件中，最后一个事件触发时在一定时间周期后再执行这个事件。 也就是说，每次触发事件，如果这个事件还没执行，那么之前触发的事件会清除，以最后一个事件为主，等待的时间会重新开始。 当然也会分第一次是否执行。 第一版简单的实现 1234567891011// 第一版，时间戳, 默认是首次执行的function debounce(fun, wait) &amp;#123;">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-27T04:00:32.780Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Davis">
-<meta name="twitter:description" content="给时间留点痕迹，不至于空白。">
+<meta name="twitter:title" content="JavaScript防抖">
+<meta name="twitter:description" content="JavaScript防抖防抖就是持续触发的事件中，最后一个事件触发时在一定时间周期后再执行这个事件。 也就是说，每次触发事件，如果这个事件还没执行，那么之前触发的事件会清除，以最后一个事件为主，等待的时间会重新开始。 当然也会分第一次是否执行。 第一版简单的实现 1234567891011// 第一版，时间戳, 默认是首次执行的function debounce(fun, wait) &amp;#123;">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2019/01/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/07/27/JavaScript防抖/"/>
 
 
 
 
 
-  <title>归档 | Davis</title>
+  <title>JavaScript防抖 | Davis</title>
   
 
 
@@ -154,7 +155,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -282,74 +283,188 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 16 篇日志。 继续努力。
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/JavaScript防抖/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davis">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/zs.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Davis">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/01/23/CSS中BFC的详解/" itemprop="url">
-              
-                <span itemprop="name">CSS中BFC的详解</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">JavaScript防抖</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-01-23T23:28:54+08:00"
-              content="2019-01-23" >
-          01-23
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-27T11:59:59+08:00">
+                2019-07-27
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/语言/" itemprop="url" rel="index">
+                    <span itemprop="name">语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/27/JavaScript防抖/" class="leancloud_visitors" data-flag-title="JavaScript防抖">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <h3 id="JavaScript防抖"><a href="#JavaScript防抖" class="headerlink" title="JavaScript防抖"></a>JavaScript防抖</h3><p>防抖就是持续触发的事件中，最后一个事件触发时在一定时间周期后再执行这个事件。</p>
+<p>也就是说，每次触发事件，如果这个事件还没执行，那么之前触发的事件会清除，以最后一个事件为主，等待的时间会重新开始。</p>
+<p>当然也会分第一次是否执行。</p>
+<h3 id="第一版"><a href="#第一版" class="headerlink" title="第一版"></a>第一版</h3><p>简单的实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一版，时间戳, 默认是首次执行的</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fun, wait</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timeout;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> context = <span class="keyword">this</span>, args = <span class="built_in">arguments</span>;</span><br><span class="line">    clearTimeout(timeout);</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      fun.apply(context, args);</span><br><span class="line">    &#125;, wait);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="第二版"><a href="#第二版" class="headerlink" title="第二版"></a>第二版</h3><p>第三个参数是第一次是否执行。</p>
+<p>当前<code>immediate</code> 为 true时，判断 <code>first</code> 是否第一次执行，第一次执行后，改变first的值，下次再触发就不再立即执行，最后一次执行是定时器里，要first复原，等待下次第一次执行。</p>
+<p>result返回结果只有第一次会有效。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fun, wait, immediate</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> timeout, fisrt, result, context, args;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    context = <span class="keyword">this</span>, args = <span class="built_in">arguments</span>;</span><br><span class="line">    <span class="keyword">if</span>(immediate &amp;&amp; !fisrt) &#123;</span><br><span class="line">      fisrt = <span class="literal">true</span>;</span><br><span class="line">      result = fun.apply(context, args);</span><br><span class="line">    &#125;</span><br><span class="line">    clearTimeout(timeout);</span><br><span class="line">    timeout = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      fisrt = <span class="literal">false</span>;</span><br><span class="line">      fun.apply(context, args);</span><br><span class="line">      timeout = args = context = <span class="literal">null</span>;</span><br><span class="line">    &#125;, wait);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/20/JavaScript节流/" rel="next" title="JavaScript节流">
+                <i class="fa fa-chevron-left"></i> JavaScript节流
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -357,6 +472,12 @@
 
 
           
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
 
         </div>
         
@@ -377,8 +498,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -464,6 +594,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript防抖"><span class="nav-number">1.</span> <span class="nav-text">JavaScript防抖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一版"><span class="nav-number">2.</span> <span class="nav-text">第一版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二版"><span class="nav-number">3.</span> <span class="nav-text">第二版</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -604,6 +750,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -644,6 +794,32 @@
 
 
 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/lib/gitalk/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '412e6dec4d016d579527',
+          clientSecret: 'd505429466eb0cf50b58f6a21d2811714aac454e',
+          repo: 'Gitalk',
+          owner: 'lvzero535',
+          admin: ['lvzero535'],
+          // id: location.pathname,
+          id: md5(location.pathname),
+          // labels: 'gitalk',
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
 
 
   
