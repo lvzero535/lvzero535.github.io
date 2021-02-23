@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Davis">
 <meta property="og:description" content="XSS攻击攻击者通过嵌入恶意脚本让浏览器执行某些操作或是获取用户信息叫XSS（Cross Site Scripting），又叫跨站脚本攻击。为了和CSS区分，所以叫XSS。通过XSS，可以完成的一些事：  获取Cookie 监听用户行为，获取用户 修改DOM伪造登录表单 恶意弹窗或是广告  XSS攻击又分成三类 存储型存储型，就是攻击者将恶意代码提交到数据库，浏览器通过请求服务器获取数据在浏览器执">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-02-23T03:43:45.566Z">
+<meta property="og:updated_time" content="2021-02-23T03:53:09.987Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="WEB安全">
 <meta name="twitter:description" content="XSS攻击攻击者通过嵌入恶意脚本让浏览器执行某些操作或是获取用户信息叫XSS（Cross Site Scripting），又叫跨站脚本攻击。为了和CSS区分，所以叫XSS。通过XSS，可以完成的一些事：  获取Cookie 监听用户行为，获取用户 修改DOM伪造登录表单 恶意弹窗或是广告  XSS攻击又分成三类 存储型存储型，就是攻击者将恶意代码提交到数据库，浏览器通过请求服务器获取数据在浏览器执">
@@ -406,7 +406,7 @@
 </ul>
 <p>XSS攻击又分成三类</p>
 <h4 id="存储型"><a href="#存储型" class="headerlink" title="存储型"></a>存储型</h4><p>存储型，就是攻击者将恶意代码提交到数据库，浏览器通过请求服务器获取数据在浏览器执行，从而达到攻击目的。像论坛网站这样的，在评论区提交，如果有其他用户看到这评论触发代码执行到达攻击目的。</p>
-<h4 id="反射型"><a href="#反射型" class="headerlink" title="反射型"></a>反射型</h4><p>反射型就是恶意脚本是网络请求的一部分，服务器没有处理直接返回浏览器显示执行。<br><a href="https://test.com?x=" target="_blank" rel="noopener">https://test.com?x=</a><script>alert(1)</script><br>如这样的 <code>x</code> 参数，直接在浏览器显示就会执行。</p>
+<h4 id="反射型"><a href="#反射型" class="headerlink" title="反射型"></a>反射型</h4><p>反射型就是恶意脚本是网络请求的一部分，服务器没有处理直接返回浏览器显示执行。<br><code>https://test.com?x=&lt;script&gt;alert(1)&lt;/script&gt;</code><br>如这样的 <code>x</code> 参数，直接在浏览器显示就会执行。</p>
 <h4 id="文档型"><a href="#文档型" class="headerlink" title="文档型"></a>文档型</h4><p>文档型（又叫DOM型），其实也是属于<code>存储型</code>或者是<code>反射型</code>的一种的。就是利用DOM对象中某些属性会触发JS脚本操作，而XSS代码操作DOM对象，这存储型和反射型都可以做到，关键是看XSS代码具体实现。比如 <code>&lt;img src=x onerror=alert(1)&gt;</code>。</p>
 <h4 id="防范措施"><a href="#防范措施" class="headerlink" title="防范措施"></a>防范措施</h4><p>知道攻击原理了，可以根据这些原理来防范。首先，这些XSS代码的来源是用户输入的数据，其次是这些数据没有过滤直接在浏览器显示而执行，所以可以这样做：</p>
 <p>1、可以限制用户输入部分数据，如 <code>&lt; &gt; script</code> 等，但这样会影响用户体验；</p>
