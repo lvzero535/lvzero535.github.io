@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Webpack,CommonsChunkPlugin," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="给时间留点痕迹，不至于空白。">
-<meta name="keywords" content="博客，记生">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Davis">
-<meta property="og:url" content="http://yoursite.com/tags/浅复制/index.html">
+<meta name="description" content="前言每次打开项目代码，看到两个new Vue，还有重复引用的Vue.prototype.xx = xx，就觉得很奇怪。历史原因吧，一个项目两个html页面，一个登录页面引入Vue，new了一次，挂载各种资源。登录成功后，跳到主页面又new了一次Vue，还是和登录页面一样挂载各种资源，如lodash,i18n。用webpack-bundle-analyzer插件看下打包后的依赖是啥情况。一看构建后的">
+<meta name="keywords" content="Webpack,CommonsChunkPlugin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CommonsChunkPlugin项目实践">
+<meta property="og:url" content="http://yoursite.com/2021/03/21/CommonsChunkPlugin项目实践/index.html">
 <meta property="og:site_name" content="Davis">
-<meta property="og:description" content="给时间留点痕迹，不至于空白。">
+<meta property="og:description" content="前言每次打开项目代码，看到两个new Vue，还有重复引用的Vue.prototype.xx = xx，就觉得很奇怪。历史原因吧，一个项目两个html页面，一个登录页面引入Vue，new了一次，挂载各种资源。登录成功后，跳到主页面又new了一次Vue，还是和登录页面一样挂载各种资源，如lodash,i18n。用webpack-bundle-analyzer插件看下打包后的依赖是啥情况。一看构建后的">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-03-20T16:49:38.152Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Davis">
-<meta name="twitter:description" content="给时间留点痕迹，不至于空白。">
+<meta name="twitter:title" content="CommonsChunkPlugin项目实践">
+<meta name="twitter:description" content="前言每次打开项目代码，看到两个new Vue，还有重复引用的Vue.prototype.xx = xx，就觉得很奇怪。历史原因吧，一个项目两个html页面，一个登录页面引入Vue，new了一次，挂载各种资源。登录成功后，跳到主页面又new了一次Vue，还是和登录页面一样挂载各种资源，如lodash,i18n。用webpack-bundle-analyzer插件看下打包后的依赖是啥情况。一看构建后的">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/浅复制/"/>
+  <link rel="canonical" href="http://yoursite.com/2021/03/21/CommonsChunkPlugin项目实践/"/>
 
 
 
 
 
-  <title>标签: 浅复制 | Davis</title>
+  <title>CommonsChunkPlugin项目实践 | Davis</title>
   
 
 
@@ -154,7 +155,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -282,54 +283,220 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>浅复制<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/21/CommonsChunkPlugin项目实践/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davis">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/zs.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Davis">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2021/02/27/JS深拷贝/" itemprop="url">
-              
-                <span itemprop="name">JS深拷贝</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">CommonsChunkPlugin项目实践</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2021-02-27T22:18:07+08:00"
-              content="2021-02-27" >
-          02-27
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-21T00:48:23+08:00">
+                2021-03-21
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/前端/Webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">Webpack</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/03/21/CommonsChunkPlugin项目实践/" class="leancloud_visitors" data-flag-title="CommonsChunkPlugin项目实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>每次打开项目代码，看到两个new Vue，还有重复引用的<code>Vue.prototype.xx = xx</code>，就觉得很奇怪。历史原因吧，一个项目两个<code>html</code>页面，一个登录页面引入<code>Vue</code>，<code>new</code>了一次，挂载各种资源。登录成功后，跳到主页面又<code>new</code>了一次<code>Vue</code>，还是和登录页面一样挂载各种资源，如<code>lodash,i18n</code>。用<code>webpack-bundle-analyzer</code>插件看下打包后的依赖是啥情况。一看构建后的代码大小有五点多M，发现很多代码是重复打包的。看了下构建配置，<code>vue-cli3</code>生成的，没动过，是原来的配置，webpack是v3版本的。难怪这样，最后<code>CommonsChunkPlugin</code>配置下，分开了重复打包的代码，看下最后打包的大小只有三点多M了。内网看不到构建结果，这里记录下这次过程。</p>
+<h3 id="CommonsChunkPlugin部分配置"><a href="#CommonsChunkPlugin部分配置" class="headerlink" title="CommonsChunkPlugin部分配置"></a>CommonsChunkPlugin部分配置</h3><p><code>CommonsChunkPlugin</code> 的用法网上很多这里，这里简单的说下。</p>
+<p> <code>name</code> ：和入口的 key 相同的，会把公共代码合入到这个入口的<code>chunk</code>中的，如果不存在就新创建一个<code>chunk</code>。</p>
+<p><code>children</code>: 从每个入口递归查询所有子<code>chunk</code>的公共模块，分离出来到对应的入口<code>chunk</code>，(入口的<code>chunk</code>的公共模块不会被分离的。)</p>
+<p><code>async</code>：使用<code>children</code>时，把公共模块加入到入口文件，会使用入口文件比较，使用这个属性可以把公共模块独立出来自己生成一个chunk。生成的<code>chunk</code> 可以和入口文件并行加载。</p>
+<p><code>chunks</code>：一个数组，指定从哪些chunk来源分离公共模块，也就是说从哪些<code>chunk</code>开始遍历分离公共模块。不能和<code>children</code>一起使用，因为<code>children</code>默认是从所有入口<code>chunk</code>开启遍历的。</p>
+<p><code>minChunks</code>：值可以是数字，被多少<code>chunk</code>引用时被分离;可以是函数更精细化的控制；还可以是<code>Infinity</code>。</p>
+<h3 id="项目配置"><a href="#项目配置" class="headerlink" title="项目配置"></a>项目配置</h3><h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><p>说下项目为什么有些公共代码没有被分离出来。<br>看下<code>CommonsChunkPlugin</code>的配置:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">  name: <span class="string">'vendor'</span>,</span><br><span class="line">  minChunks(<span class="built_in">module</span>, count) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">module</span>.resource &amp;&amp; (<span class="regexp">/node_modules/</span>).test(<span class="built_in">module</span>.resource);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;),</span><br><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">  name: <span class="string">"manifest"</span>,</span><br><span class="line">  minChunks: <span class="literal">Infinity</span></span><br><span class="line">&#125;),</span><br><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">  name: <span class="string">'app'</span>,</span><br><span class="line">  minChunks: <span class="number">3</span>,</span><br><span class="line">  <span class="keyword">async</span>: <span class="literal">true</span>,</span><br><span class="line">&#125;),</span><br></pre></td></tr></table></figure></p>
+<p>大体上是这样子的。<br>有哪些重复代码没有被分离出来呢？</p>
+<ul>
+<li>第一部分是：两个入口文件都引用了公共组件和国际化，这部分代码没有被分离出来。</li>
+<li>第二部分是：主页面入口的异步子模块的公共模块没被分离出来。</li>
+</ul>
+<p>从上面的配置上看都没有分离这些代码的逻辑。</p>
+<h4 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h4><p>第一部分要从两个入口遍历，至少被引用2次。<br>第二部分要从子模块去遍历。大体配置如下面这样的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 入口模块</span></span><br><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">  minChunks: <span class="number">2</span>,</span><br><span class="line">  name: <span class="string">'app'</span>,</span><br><span class="line">  chunks: [<span class="string">'login'</span>, <span class="string">'page'</span>]</span><br><span class="line">&#125;),</span><br><span class="line"><span class="comment">// 子模块</span></span><br><span class="line"><span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">  minChunks: <span class="number">2</span>,</span><br><span class="line">  children: <span class="literal">true</span>, <span class="comment">// 子模块</span></span><br><span class="line">  <span class="keyword">async</span>: <span class="string">'async'</span>, <span class="comment">// 分离</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h4><p>这里有个坑，可能不太熟悉，把两个入口的页面公共代码分离出来后，测试的时候报错了，最后发现是依赖引入有误，也对，分离出来的公共代码没有引入肯定会报错的。<br>最后修改<code>html-webpack-plugin</code>插件的两个属性<code>chunks</code>，加上分离出来的<code>chunk</code>名称<code>app</code>,<code>chunksSortMode</code>改成<code>manual</code></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>实践和理论还是有区别的，虽然知道webpack大体的配置是怎么样，但是实践起来还是不太一样的，比如这次，虽然分离出来了，但是测试的时候报错了，一开始还以为自己配置写错了，纠结了好久，后面排查才知道依赖引用问题。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Webpack/" rel="tag"># Webpack</a>
+          
+            <a href="/tags/CommonsChunkPlugin/" rel="tag"># CommonsChunkPlugin</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/07/JS原型，继承，new和instanceof的实现/" rel="next" title="JS原型，继承，new和instanceof的实现">
+                <i class="fa fa-chevron-left"></i> JS原型，继承，new和instanceof的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -337,6 +504,12 @@
 
 
           
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
 
         </div>
         
@@ -357,8 +530,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -438,6 +620,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonsChunkPlugin部分配置"><span class="nav-number">2.</span> <span class="nav-text">CommonsChunkPlugin部分配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目配置"><span class="nav-number">3.</span> <span class="nav-text">项目配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原因"><span class="nav-number">3.1.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决"><span class="nav-number">3.2.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#坑"><span class="nav-number">3.3.</span> <span class="nav-text">坑</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -578,6 +776,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -618,6 +820,32 @@
 
 
 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/lib/gitalk/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '412e6dec4d016d579527',
+          clientSecret: 'd505429466eb0cf50b58f6a21d2811714aac454e',
+          repo: 'Gitalk',
+          owner: 'lvzero535',
+          admin: ['lvzero535'],
+          // id: location.pathname,
+          id: md5(location.pathname),
+          // labels: 'gitalk',
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
 
 
   

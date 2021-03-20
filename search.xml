@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[CommonsChunkPlugin项目实践]]></title>
+    <url>%2F2021%2F03%2F21%2FCommonsChunkPlugin%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5%2F</url>
+    <content type="text"><![CDATA[前言每次打开项目代码，看到两个new Vue，还有重复引用的Vue.prototype.xx = xx，就觉得很奇怪。历史原因吧，一个项目两个html页面，一个登录页面引入Vue，new了一次，挂载各种资源。登录成功后，跳到主页面又new了一次Vue，还是和登录页面一样挂载各种资源，如lodash,i18n。用webpack-bundle-analyzer插件看下打包后的依赖是啥情况。一看构建后的代码大小有五点多M，发现很多代码是重复打包的。看了下构建配置，vue-cli3生成的，没动过，是原来的配置，webpack是v3版本的。难怪这样，最后CommonsChunkPlugin配置下，分开了重复打包的代码，看下最后打包的大小只有三点多M了。内网看不到构建结果，这里记录下这次过程。 CommonsChunkPlugin部分配置CommonsChunkPlugin 的用法网上很多这里，这里简单的说下。 name ：和入口的 key 相同的，会把公共代码合入到这个入口的chunk中的，如果不存在就新创建一个chunk。 children: 从每个入口递归查询所有子chunk的公共模块，分离出来到对应的入口chunk，(入口的chunk的公共模块不会被分离的。) async：使用children时，把公共模块加入到入口文件，会使用入口文件比较，使用这个属性可以把公共模块独立出来自己生成一个chunk。生成的chunk 可以和入口文件并行加载。 chunks：一个数组，指定从哪些chunk来源分离公共模块，也就是说从哪些chunk开始遍历分离公共模块。不能和children一起使用，因为children默认是从所有入口chunk开启遍历的。 minChunks：值可以是数字，被多少chunk引用时被分离;可以是函数更精细化的控制；还可以是Infinity。 项目配置原因说下项目为什么有些公共代码没有被分离出来。看下CommonsChunkPlugin的配置:123456789101112131415new webpack.optimize.CommonsChunkPlugin(&#123; name: 'vendor', minChunks(module, count) &#123; return module.resource &amp;&amp; (/node_modules/).test(module.resource); &#125;&#125;),new webpack.optimize.CommonsChunkPlugin(&#123; name: "manifest", minChunks: Infinity&#125;),new webpack.optimize.CommonsChunkPlugin(&#123; name: 'app', minChunks: 3, async: true,&#125;), 大体上是这样子的。有哪些重复代码没有被分离出来呢？ 第一部分是：两个入口文件都引用了公共组件和国际化，这部分代码没有被分离出来。 第二部分是：主页面入口的异步子模块的公共模块没被分离出来。 从上面的配置上看都没有分离这些代码的逻辑。 解决第一部分要从两个入口遍历，至少被引用2次。第二部分要从子模块去遍历。大体配置如下面这样的：123456789101112// 入口模块new webpack.optimize.CommonsChunkPlugin(&#123; minChunks: 2, name: 'app', chunks: ['login', 'page']&#125;),// 子模块new webpack.optimize.CommonsChunkPlugin(&#123; minChunks: 2, children: true, // 子模块 async: 'async', // 分离&#125;) 坑这里有个坑，可能不太熟悉，把两个入口的页面公共代码分离出来后，测试的时候报错了，最后发现是依赖引入有误，也对，分离出来的公共代码没有引入肯定会报错的。最后修改html-webpack-plugin插件的两个属性chunks，加上分离出来的chunk名称app,chunksSortMode改成manual 最后实践和理论还是有区别的，虽然知道webpack大体的配置是怎么样，但是实践起来还是不太一样的，比如这次，虽然分离出来了，但是测试的时候报错了，一开始还以为自己配置写错了，纠结了好久，后面排查才知道依赖引用问题。]]></content>
+      <categories>
+        <category>JavaScript</category>
+        <category>前端</category>
+        <category>Webpack</category>
+      </categories>
+      <tags>
+        <tag>Webpack</tag>
+        <tag>CommonsChunkPlugin</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JS原型，继承，new和instanceof的实现]]></title>
     <url>%2F2021%2F03%2F07%2FJS%E5%8E%9F%E5%9E%8B%EF%BC%8C%E7%BB%A7%E6%89%BF%EF%BC%8Cnew%E5%92%8Cinstanceof%E7%9A%84%E5%AE%9E%E7%8E%B0%2F</url>
     <content type="text"><![CDATA[原型JS里万物皆对象，而对象是由构造函数创建的。基本数据类型都有与之对应的构造函数。如number 对应的是Number，当你定义一个变量并存储一种数据类型时（变量没有类型，数据有类型），会有相应的数据类型的方法，这些方法从哪里来？其实就是从原型来的。 1234567var a = 1; // 定义一个数字型// a 是基本数据类型，基本数据类型是没有方法的，方法只有对象才有。哪这里为a为啥可以调用方法呢？// 其实在 a 调用 toFixed 时，JS引擎会自动封装成对象，也就是通过Number构造函数, 这个构造函数里有// 个原型 prototype 存储了这个类型的一些方法，调用这些方法后，又把这个对象给销毁a.toFixed(2) // Number.prototype.toFixeda.toPrecision(3) // Number.prototype.toPrecision 每个对象在创建时内部都有一个内置属性[[Prototype]] 指向原型，在浏览器中可以用__proto__来表示（注意这个不是标准属性，有些浏览器不存在此属性），这个原型是指构造函数中的Function.prototype ，也就是同一个构造函数创建的实例对象都有同样的原型，原型对象中的方法和属性是所有实例对象所共有的。原型中有一个属性是指向构造函数的Function.prototype.constructor === Function 12345678function Person(name) &#123; this.name = name;&#125;var p = new Person()var p1 = new Person()p.__proto__ === Person.prototype // truep.__proto__ .constructor === Person // truep.__proto__ === p1.__proto__ // true 原型是可以修改的。 原型链原型也是对象，对象就有原型，这样每个对象内的原型也有自己的原型，这样下去每个原型就可以形成一个链条，这就是原型链。但这个链的尽头在哪里？JS里万物虽然都是对象，但这些对象也是有源头的，所有创建这些对象的构造函数的原型都是指向Object.prototype ，而Object.prototype 的原型是null 也就是说这个Object 是最基本的构造函数。 这个原型链有啥用呢？ 看个例子： 定义一个对象，对象有个属性和一个方法，正常来说对象里没定义的属性或方法，调用的时候属性会返回undefined ，方法会抛出一个错误， 我们调用一个obj.valueOf() 试试，它是有值返回的，没有报错，说明这个obj 对象里有这个方法，那个这个方法是怎么来的呢？ 先来看下对象是怎么创建的。对于JS 来说创建对象有两种形式。 字面量，也是推荐的一种，这是一种简写方式，其实内部还是通过相应的构造函数new 出来的。 通过相应构造函数创建一个实例对象。这种比较麻烦，一般不推荐这种方法。 前面说过了，在创建对象过程中，对象有个内部属性指向构造函数的原型，这个过程在后面说，具体就是obj.__proto__ = Object.prototype 。这个原型上有些方法。 当obj.val 取值时，发现当前对象，没有这个属性，它会找到原型，看下原型有没有这个属性，如有就返回这个属性，没用就继续往原型的原型上找，直到没有原型为止，如果一直找不到这个属性就会返回undefined 。方法也是如此。 如valueOf 方法，不在obj对象上，去原型obj.__proto__上找，也就是指向的Object.prototype 这个对象上有valueOf方法，调用。如果这个对象没有，而这个对象的原型是null 没有，就是返回undefined 这就是经常的报错 undefined is not function。 给对象的属性赋值时，属性存在正常赋值，如果属性不存在，它不会往它的原型链上找。也就是说，当给对象属性赋值时，在当前对象找，找到一 直接赋值，找不到直接就创建一个新的属性了，不会往原型链上找到赋值，这也是可以理解的，整条原型链，如果这样操作，所有创建的属性都往最顶级的原型去，那不是很大很大？ 12345678910111213// 字面量var obj = &#123; p: 1, f() &#123;&#125;&#125;obj.valueOf() // Object &#123;&#125;obj.__proto__ == Object.prototype // true// 构造函数var obj = new Object()obj.p = 1;obj.f = function() &#123;&#125;obj.__proto__ == Object.prototype // true 这个原型链有啥用呢？ 当开发面向对象编程的时候，就可以通过原型链来封装和继承一些公共的属性或方法了。 （作用域链，其实就是变量的寻找过程，和这个原型链类似） 继承什么是继承？前面说了，原型是可以修改的，就是在创建对象的时候，把带有公共属性的对象指向创建对象的原型，这样新对象就可以继承原型对象上的方法或属性了，继承就是通过原型链的形式来实现。 继承有好几种方式可以实现，每种方式都各有优缺点，这里就不说了，网上很多，这里附上两个不错的地址。 地址1 地址2 直接来一个相对最好的实现方式 12345678// 父类function Person() &#123;&#125;// 子类function Man() &#123; Person.call(this); // 关联父实例上的属性方法&#125;Man.prototype = Object.create(Person.prototype) // 关联原型上的属性方法Man.prototype.constructor = Man // 修复constructor指引 ES6和ES5在继承上的区别，上面是ES5的，来看下ES6的实现方式。ES6 上的继承是先有父类的实例，才有子类的实例，而ES5则恰好相反，先有子类才有父类。 123456class Parent &#123;&#125;class Children extends &#123; constructor() &#123; super() &#125;&#125; new实现new 一个构造函数时主要过程有四个： 创建一个新的对象。 把构造函数的原型赋值给新对象的内部属性。 判断this 并且执行构造函数给this 的属性赋值。 返回一个新对象或者是返回构造函数返回的对象。 注意：当构造函数返回对象时，this指向失效了。 看下面代码就知道了。 12345678910function new(Fn, ...args) &#123; const obj = &#123;&#125;; // 第一步 obj.__proto__ = Fn.prototype; // 第二步 const ret = Fn.call(obj, ...args);// 第三步 // 以下是第四步 if (ret !== null &amp;&amp; (typeof ret === 'object' || typeof ret === 'function')) &#123; return ret; &#125; return obj;&#125; instanceof实现typeof 判断的是数据类型，而instanceof 是一个操作符。left instanceof Right 是判断Right构造函数的原型Right.prototype 是否存在left 的原型链，存在返回true ，否则返回 false 。 1234567891011function instanceof(left, right) &#123; const _right = right.prototype; const _left = left.prototype; while(_left) &#123; if (_left === _right) &#123; return true; &#125; _left = _left.__proto__; &#125; return false;&#125; 原型一直是JS的重点，很多时候都记不住，现在把自己了解的记下来，并把原型相关的两个new,instanceof 关键字的实现一下，方便一起记忆。]]></content>
@@ -9,9 +23,9 @@
         <category>前端</category>
       </categories>
       <tags>
+        <tag>JavaScript</tag>
         <tag>原型</tag>
         <tag>继承</tag>
-        <tag>JavaScript</tag>
         <tag>new</tag>
         <tag>instanceof</tag>
       </tags>
@@ -25,9 +39,9 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JavaScript</tag>
         <tag>深拷贝</tag>
         <tag>浅复制</tag>
+        <tag>JavaScript</tag>
         <tag>深复制</tag>
         <tag>浅拷贝</tag>
       </tags>
