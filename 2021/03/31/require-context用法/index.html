@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Webapck,require.context," />
 
 
 
@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="给时间留点痕迹，不至于空白。">
-<meta name="keywords" content="博客，记生">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Davis">
-<meta property="og:url" content="http://yoursite.com/tags/JavaScript/index.html">
+<meta name="description" content="前言在开发的时候总会碰到整个文件夹下的文件都一起引入，特别是组件化开发的项目中，有一些基础组件，肯定会全部引进的，这样组件不多，一个个引没啥问题，但随着项目的扩展，组件可能会越来越多，每次新增一个组件都手动引入，这样太麻烦了。webpack 下有个批量引入文件的函数require.context，学习下这个函数的用法。 用法看下webpack 官网的介绍 require.context  这个函数">
+<meta name="keywords" content="Webapck,require.context">
+<meta property="og:type" content="article">
+<meta property="og:title" content="require.context用法">
+<meta property="og:url" content="http://yoursite.com/2021/03/31/require-context用法/index.html">
 <meta property="og:site_name" content="Davis">
-<meta property="og:description" content="给时间留点痕迹，不至于空白。">
+<meta property="og:description" content="前言在开发的时候总会碰到整个文件夹下的文件都一起引入，特别是组件化开发的项目中，有一些基础组件，肯定会全部引进的，这样组件不多，一个个引没啥问题，但随着项目的扩展，组件可能会越来越多，每次新增一个组件都手动引入，这样太麻烦了。webpack 下有个批量引入文件的函数require.context，学习下这个函数的用法。 用法看下webpack 官网的介绍 require.context  这个函数">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2021/03/31/require-context用法/image-20210331224112678.png">
+<meta property="og:image" content="http://yoursite.com/2021/03/31/require-context用法/image-20210331225014431.png">
+<meta property="og:updated_time" content="2021-03-31T15:07:26.755Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Davis">
-<meta name="twitter:description" content="给时间留点痕迹，不至于空白。">
+<meta name="twitter:title" content="require.context用法">
+<meta name="twitter:description" content="前言在开发的时候总会碰到整个文件夹下的文件都一起引入，特别是组件化开发的项目中，有一些基础组件，肯定会全部引进的，这样组件不多，一个个引没啥问题，但随着项目的扩展，组件可能会越来越多，每次新增一个组件都手动引入，这样太麻烦了。webpack 下有个批量引入文件的函数require.context，学习下这个函数的用法。 用法看下webpack 官网的介绍 require.context  这个函数">
+<meta name="twitter:image" content="http://yoursite.com/2021/03/31/require-context用法/image-20210331224112678.png">
 
 
 
@@ -119,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/JavaScript/"/>
+  <link rel="canonical" href="http://yoursite.com/2021/03/31/require-context用法/"/>
 
 
 
 
 
-  <title>标签: JavaScript | Davis</title>
+  <title>require.context用法 | Davis</title>
   
 
 
@@ -154,7 +158,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -282,250 +286,217 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>JavaScript<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/31/require-context用法/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Davis">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/zs.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Davis">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2021/03/07/JS原型，继承，new和instanceof的实现/" itemprop="url">
-              
-                <span itemprop="name">JS原型，继承，new和instanceof的实现</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">require.context用法</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2021-03-07T00:11:12+08:00"
-              content="2021-03-07" >
-          03-07
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-31T23:04:38+08:00">
+                2021-03-31
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/Webapck/" itemprop="url" rel="index">
+                    <span itemprop="name">Webapck</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2021/03/31/require-context用法/" class="leancloud_visitors" data-flag-title="require.context用法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2021/02/27/JS深拷贝/" itemprop="url">
-              
-                <span itemprop="name">JS深拷贝</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2021-02-27T22:18:07+08:00"
-              content="2021-02-27" >
-          02-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/03/22/XMLHttpRequest-内容详细/" itemprop="url">
-              
-                <span itemprop="name">XMLHttpRequest 内容详细</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-03-22T21:52:05+08:00"
-              content="2020-03-22" >
-          03-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/07/27/JavaScript防抖/" itemprop="url">
-              
-                <span itemprop="name">JavaScript防抖</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-07-27T11:59:59+08:00"
-              content="2019-07-27" >
-          07-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/07/20/JavaScript节流/" itemprop="url">
-              
-                <span itemprop="name">JavaScript节流</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-07-20T14:15:22+08:00"
-              content="2019-07-20" >
-          07-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/15/JS执行过程/" itemprop="url">
-              
-                <span itemprop="name">JS执行过程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-04-15T23:16:27+08:00"
-              content="2019-04-15" >
-          04-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/07/JS尾调用优化/" itemprop="url">
-              
-                <span itemprop="name">JS尾调用优化</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-04-07T18:37:13+08:00"
-              content="2019-04-07" >
-          04-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/04/JavaScript的this的用法/" itemprop="url">
-              
-                <span itemprop="name">JavaScript的this的用法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-04T23:21:04+08:00"
-              content="2018-06-04" >
-          06-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在开发的时候总会碰到整个文件夹下的文件都一起引入，特别是组件化开发的项目中，有一些基础组件，肯定会全部引进的，这样组件不多，一个个引没啥问题，但随着项目的扩展，组件可能会越来越多，每次新增一个组件都手动引入，这样太麻烦了。<code>webpack</code> 下有个批量引入文件的函数<code>require.context</code>，学习下这个函数的用法。</p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p>看下<code>webpack</code> 官网的介绍 <a href="https://www.webpackjs.com/guides/dependency-management/#require-context" target="_blank" rel="noopener">require.context</a>  这个函数有三个参数。</p>
+<ul>
+<li><code>directory</code> 引入文件的目录</li>
+<li><code>useSubdirectories</code> 是否递归查找子目录</li>
+<li><code>regExp</code> 正则匹配，需要查找的文件</li>
+</ul>
+<p>这个函数会返回一个以<code>directory</code> 目录为上下文的函数<code>requestContext</code>。这个返回的函数有三个属性。</p>
+<ul>
+<li><p><code>keys</code> 函数，返回的是个数组，这个数组的元素其实是一个路径，和<code>directory</code> 拼接就是当前调用<code>require.context</code> 的相对路径。</p>
+</li>
+<li><p><code>id</code> 是上下文模块里面所包含的模块 id. 它可能在你使用 <code>module.hot.accept</code> 的时候被用到。</p>
+</li>
+<li><code>resolve</code> 函数，这个函数传入<code>keys</code> 数组中的元素返回的是一个完整的路径。</li>
+</ul>
+<p>函数<code>requestContext</code> 通过<code>keys</code> 的数组里的路径可以获取对应的文件内容。说那么多可能有点迷糊，直接来代码更直观一些。</p>
+<h3 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h3><p>代码目录是这样的:</p>
+<p><img src="/2021/03/31/require-context用法/image-20210331224112678.png" alt="image-20210331224112678">    </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">src/_test/index.js</span><br><span class="line">index.js</span><br><span class="line">utils</span><br><span class="line">|___a.js</span><br><span class="line">|___b.js</span><br><span class="line">|___c.js</span><br><span class="line">|___child</span><br><span class="line">|______1.js</span><br><span class="line">|______2</span><br><span class="line">|_________2.js</span><br><span class="line"><span class="comment">// index.js</span></span><br><span class="line"><span class="keyword">const</span> requestContext = <span class="built_in">require</span>.context(<span class="string">'./utils'</span>, <span class="literal">true</span>, /\.js$/);</span><br><span class="line"><span class="keyword">const</span> map = &#123;&#125;;</span><br><span class="line"><span class="keyword">let</span> lastFile = <span class="string">''</span>;</span><br><span class="line">requestContext.keys().forEach(<span class="function">(<span class="params">element</span>) =&gt;</span> &#123;</span><br><span class="line">  map[element] = requestContext(element);</span><br><span class="line">  lastFile = element;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'requestContext====&gt;'</span>, requestContext);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'requestContext.id====&gt;'</span>, requestContext.id);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'requestContext.resolve====&gt;'</span>, requestContext.resolve);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'lastFile====&gt;'</span>, lastFile);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'requestContext.resolve(lastFile)====&gt;'</span>, requestContext.resolve(lastFile));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'map====&gt;'</span>, map);</span><br></pre></td></tr></table></figure>
+<p>看下打印的内容</p>
+<p><img src="/2021/03/31/require-context用法/image-20210331225014431.png" alt="image-20210331225014431"></p>
+<p>点击看下<code>requestContext</code> 内部的具体实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> map = &#123;</span><br><span class="line">	<span class="string">"./a.js"</span>: <span class="string">"./src/_test/utils/a.js"</span>,</span><br><span class="line">	<span class="string">"./b.js"</span>: <span class="string">"./src/_test/utils/b.js"</span>,</span><br><span class="line">	<span class="string">"./c.js"</span>: <span class="string">"./src/_test/utils/c.js"</span>,</span><br><span class="line">	<span class="string">"./child/1.js"</span>: <span class="string">"./src/_test/utils/child/1.js"</span>,</span><br><span class="line">	<span class="string">"./child/2/2.js"</span>: <span class="string">"./src/_test/utils/child/2/2.js"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">webpackContext</span>(<span class="params">req</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> id = webpackContextResolve(req);</span><br><span class="line">	<span class="keyword">return</span> __webpack_require__(id);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">webpackContextResolve</span>(<span class="params">req</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!__webpack_require__.o(map, req)) &#123;</span><br><span class="line">		<span class="keyword">var</span> e = <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"Cannot find module '"</span> + req + <span class="string">"'"</span>);</span><br><span class="line">		e.code = <span class="string">'MODULE_NOT_FOUND'</span>;</span><br><span class="line">		<span class="keyword">throw</span> e;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> map[req];</span><br><span class="line">&#125;</span><br><span class="line">webpackContext.keys = <span class="function"><span class="keyword">function</span> <span class="title">webpackContextKeys</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">Object</span>.keys(map);</span><br><span class="line">&#125;;</span><br><span class="line">webpackContext.resolve = webpackContextResolve;</span><br><span class="line"><span class="built_in">module</span>.exports = webpackContext;</span><br><span class="line">webpackContext.id = <span class="string">"./src/_test/utils sync recursive \\.js$"</span>;</span><br></pre></td></tr></table></figure>
+<p>看完内部代码就知道怎么回事了，<code>require.context</code> 内部会生成<code>map</code> 私有变量，通过<code>keys</code> 函数返回这个私有变量的所有<code>key</code> 。然后把<code>key</code>传给<code>webpackContext</code> ,<code>webpackContext</code> 通过<code>webpackContextResolve</code> 获取路径，然后把路径传入<code>__webpack_require__</code> ，这样就可以获取到文件内容了。</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>这个函数在项目中会经常用到的，其实不止组件可以用这个，在使用大量<code>svg</code> 当图标的时候也可以用，这个<code>svg</code> 的用法具体可以看下<code>vue-element-admin-master</code> 这个的开源项目。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Webapck/" rel="tag"># Webapck</a>
+          
+            <a href="/tags/require-context/" rel="tag"># require.context</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/21/CommonsChunkPlugin项目实践/" rel="next" title="CommonsChunkPlugin项目实践">
+                <i class="fa fa-chevron-left"></i> CommonsChunkPlugin项目实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -533,6 +504,12 @@
 
 
           
+
+  
+    <div id="gitalk-container"></div>
+  
+
+
 
         </div>
         
@@ -553,8 +530,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -634,6 +620,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用法"><span class="nav-number">2.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实践"><span class="nav-number">3.</span> <span class="nav-text">实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -774,6 +776,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -814,6 +820,32 @@
 
 
 
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/lib/gitalk/md5.min.js"></script>
+
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '412e6dec4d016d579527',
+          clientSecret: 'd505429466eb0cf50b58f6a21d2811714aac454e',
+          repo: 'Gitalk',
+          owner: 'lvzero535',
+          admin: ['lvzero535'],
+          // id: location.pathname,
+          id: md5(location.pathname),
+          // labels: 'gitalk',
+          labels: 'gitalk'.split(',').filter(l => l),
+          perPage: 15,
+          pagerDirection: 'last',
+          createIssueManually: true,
+          distractionFreeMode: false
+        })
+
+        gitalk.render('gitalk-container')           
+       </script>
 
 
   

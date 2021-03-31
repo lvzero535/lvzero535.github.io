@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[require.context用法]]></title>
+    <url>%2F2021%2F03%2F31%2Frequire-context%E7%94%A8%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[前言在开发的时候总会碰到整个文件夹下的文件都一起引入，特别是组件化开发的项目中，有一些基础组件，肯定会全部引进的，这样组件不多，一个个引没啥问题，但随着项目的扩展，组件可能会越来越多，每次新增一个组件都手动引入，这样太麻烦了。webpack 下有个批量引入文件的函数require.context，学习下这个函数的用法。 用法看下webpack 官网的介绍 require.context 这个函数有三个参数。 directory 引入文件的目录 useSubdirectories 是否递归查找子目录 regExp 正则匹配，需要查找的文件 这个函数会返回一个以directory 目录为上下文的函数requestContext。这个返回的函数有三个属性。 keys 函数，返回的是个数组，这个数组的元素其实是一个路径，和directory 拼接就是当前调用require.context 的相对路径。 id 是上下文模块里面所包含的模块 id. 它可能在你使用 module.hot.accept 的时候被用到。 resolve 函数，这个函数传入keys 数组中的元素返回的是一个完整的路径。 函数requestContext 通过keys 的数组里的路径可以获取对应的文件内容。说那么多可能有点迷糊，直接来代码更直观一些。 实践代码目录是这样的: 12345678910111213141516171819202122232425src/_test/index.jsindex.jsutils|___a.js|___b.js|___c.js|___child|______1.js|______2|_________2.js// index.jsconst requestContext = require.context('./utils', true, /\.js$/);const map = &#123;&#125;;let lastFile = '';requestContext.keys().forEach((element) =&gt; &#123; map[element] = requestContext(element); lastFile = element;&#125;);console.log('requestContext====&gt;', requestContext);console.log('requestContext.id====&gt;', requestContext.id);console.log('requestContext.resolve====&gt;', requestContext.resolve);console.log('lastFile====&gt;', lastFile);console.log('requestContext.resolve(lastFile)====&gt;', requestContext.resolve(lastFile));console.log('map====&gt;', map); 看下打印的内容 点击看下requestContext 内部的具体实现 123456789101112131415161718192021222324252627var map = &#123; "./a.js": "./src/_test/utils/a.js", "./b.js": "./src/_test/utils/b.js", "./c.js": "./src/_test/utils/c.js", "./child/1.js": "./src/_test/utils/child/1.js", "./child/2/2.js": "./src/_test/utils/child/2/2.js"&#125;;function webpackContext(req) &#123; var id = webpackContextResolve(req); return __webpack_require__(id);&#125;function webpackContextResolve(req) &#123; if(!__webpack_require__.o(map, req)) &#123; var e = new Error("Cannot find module '" + req + "'"); e.code = 'MODULE_NOT_FOUND'; throw e; &#125; return map[req];&#125;webpackContext.keys = function webpackContextKeys() &#123; return Object.keys(map);&#125;;webpackContext.resolve = webpackContextResolve;module.exports = webpackContext;webpackContext.id = "./src/_test/utils sync recursive \\.js$"; 看完内部代码就知道怎么回事了，require.context 内部会生成map 私有变量，通过keys 函数返回这个私有变量的所有key 。然后把key传给webpackContext ,webpackContext 通过webpackContextResolve 获取路径，然后把路径传入__webpack_require__ ，这样就可以获取到文件内容了。 最后这个函数在项目中会经常用到的，其实不止组件可以用这个，在使用大量svg 当图标的时候也可以用，这个svg 的用法具体可以看下vue-element-admin-master 这个的开源项目。]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Webapck</category>
+      </categories>
+      <tags>
+        <tag>Webapck</tag>
+        <tag>require.context</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CommonsChunkPlugin项目实践]]></title>
     <url>%2F2021%2F03%2F21%2FCommonsChunkPlugin%E9%A1%B9%E7%9B%AE%E5%AE%9E%E8%B7%B5%2F</url>
     <content type="text"><![CDATA[前言每次打开项目代码，看到两个new Vue，还有重复引用的Vue.prototype.xx = xx，就觉得很奇怪。历史原因吧，一个项目两个html页面，一个登录页面引入Vue，new了一次，挂载各种资源。登录成功后，跳到主页面又new了一次Vue，还是和登录页面一样挂载各种资源，如lodash,i18n。用webpack-bundle-analyzer插件看下打包后的依赖是啥情况。一看构建后的代码大小有五点多M，发现很多代码是重复打包的。看了下构建配置，vue-cli3生成的，没动过，是原来的配置，webpack是v3版本的。难怪这样，最后CommonsChunkPlugin配置下，分开了重复打包的代码，看下最后打包的大小只有三点多M了。内网看不到构建结果，这里记录下这次过程。 CommonsChunkPlugin部分配置CommonsChunkPlugin 的用法网上很多这里，这里简单的说下。 name ：和入口的 key 相同的，会把公共代码合入到这个入口的chunk中的，如果不存在就新创建一个chunk。 children: 从每个入口递归查询所有子chunk的公共模块，分离出来到对应的入口chunk，(入口的chunk的公共模块不会被分离的。) async：使用children时，把公共模块加入到入口文件，会使用入口文件比较，使用这个属性可以把公共模块独立出来自己生成一个chunk。生成的chunk 可以和入口文件并行加载。 chunks：一个数组，指定从哪些chunk来源分离公共模块，也就是说从哪些chunk开始遍历分离公共模块。不能和children一起使用，因为children默认是从所有入口chunk开启遍历的。 minChunks：值可以是数字，被多少chunk引用时被分离;可以是函数更精细化的控制；还可以是Infinity。 项目配置原因说下项目为什么有些公共代码没有被分离出来。看下CommonsChunkPlugin的配置:123456789101112131415new webpack.optimize.CommonsChunkPlugin(&#123; name: 'vendor', minChunks(module, count) &#123; return module.resource &amp;&amp; (/node_modules/).test(module.resource); &#125;&#125;),new webpack.optimize.CommonsChunkPlugin(&#123; name: "manifest", minChunks: Infinity&#125;),new webpack.optimize.CommonsChunkPlugin(&#123; name: 'app', minChunks: 3, async: true,&#125;), 大体上是这样子的。有哪些重复代码没有被分离出来呢？ 第一部分是：两个入口文件都引用了公共组件和国际化，这部分代码没有被分离出来。 第二部分是：主页面入口的异步子模块的公共模块没被分离出来。 从上面的配置上看都没有分离这些代码的逻辑。 解决第一部分要从两个入口遍历，至少被引用2次。第二部分要从子模块去遍历。大体配置如下面这样的：123456789101112// 入口模块new webpack.optimize.CommonsChunkPlugin(&#123; minChunks: 2, name: 'app', chunks: ['login', 'page']&#125;),// 子模块new webpack.optimize.CommonsChunkPlugin(&#123; minChunks: 2, children: true, // 子模块 async: 'async', // 分离&#125;) 坑这里有个坑，可能不太熟悉，把两个入口的页面公共代码分离出来后，测试的时候报错了，最后发现是依赖引入有误，也对，分离出来的公共代码没有引入肯定会报错的。最后修改html-webpack-plugin插件的两个属性chunks，加上分离出来的chunk名称app,chunksSortMode改成manual 最后实践和理论还是有区别的，虽然知道webpack大体的配置是怎么样，但是实践起来还是不太一样的，比如这次，虽然分离出来了，但是测试的时候报错了，一开始还以为自己配置写错了，纠结了好久，后面排查才知道依赖引用问题。]]></content>
@@ -23,9 +36,9 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JavaScript</tag>
         <tag>原型</tag>
         <tag>继承</tag>
+        <tag>JavaScript</tag>
         <tag>new</tag>
         <tag>instanceof</tag>
       </tags>
@@ -39,9 +52,9 @@
         <category>前端</category>
       </categories>
       <tags>
+        <tag>JavaScript</tag>
         <tag>深拷贝</tag>
         <tag>浅复制</tag>
-        <tag>JavaScript</tag>
         <tag>深复制</tag>
         <tag>浅拷贝</tag>
       </tags>
