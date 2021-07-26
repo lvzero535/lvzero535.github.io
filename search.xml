@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Nginx重定向]]></title>
+    <url>%2F2021%2F07%2F26%2FNginx%E9%87%8D%E5%AE%9A%E5%90%91%2F</url>
+    <content type="text"><![CDATA[前言在nginx的配置中碰到一个奇怪的问题，在浏览器输入http://mydomin.com/test时会重定向到这样的路径http://mydomin.com:8080/test/下，完全不知道咋回来，后来网上搜索一波，原来这是nginx 重定向的。在nginx的配置中 http://mydomin.com/test/ 和http://mydomin.com/test 是不一样的，前者是找test 目录下的index.html或page.html，后者会发生301重定向。而重定向的结果和三个变量的配置有关。 nginx配置语法: absolute_redirect on | off;默认值: absolute_redirect on;上下文: http, server, location这个指令出现在版本 1.11.8. on：响应，301 Location: http://mydomin.com/test/ off：响应，301 Location: /test/ 语法: port_in_redirect on | off;默认值: port_in_redirect on;上下文: http, server, location开启或关闭nginx发起绝对重定向（absolute_redirect on）时指定端口。 重定向中首要主机名的使用由server_name_in_redirect指令控制。 on：响应，301 Location: http://mydomin.com:8080/test/ 8080是nginx监听的端口 off：响应，301 Location: http://mydomin.com/test/ 端口是浏览器访问地址自带的端口，如80或443，响应的就是80或443 语法: server_name_in_redirect on | off;默认值: server_name_in_redirect off;上下文: http, server, location开启或关闭nginx将server_name指令指定的首要虚拟主机名用于发起的绝对重定向（absolute_redirect on）的功能。关闭此功能时（server_name_in_redirect off），nginx将使用“Host”请求头中的名字，如果没有此请求头，nginx将使用虚拟主机所在的IP地址。 重定向中端口的使用由port_in_redirect指令控制。 on：响应，301 Location: http://localhost/test/ 域名是nginx配置的server_name off：响应，301 Location: http://mydomin.com/test/ 参考https://www.jianshu.com/p/3adcb8b931a3 http://nginx.org/en/docs/http/ngx_http_core_module.html#absolute_redirect]]></content>
+      <categories>
+        <category>Nginx</category>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>Nginx</tag>
+        <tag>重定向</tag>
+        <tag>端口</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Webpack不同环境构建Hash不变]]></title>
     <url>%2F2021%2F06%2F18%2FWebpack%E4%B8%8D%E5%90%8C%E7%8E%AF%E5%A2%83%E6%9E%84%E5%BB%BAHash%E4%B8%8D%E5%8F%98%2F</url>
     <content type="text"><![CDATA[需求在webpack 构建后，文件名称都会有一个hash 值，这个值的生成在webpack 的配置中有三种生成方式 hash, chunkhash,contenthash 。之前关注的一直是生成hash 相关的内容，如hash 和项目有关，chunkhash 和chunk 有关，contenthash 和CSS 提取有关。考虑到缓存，一般用chunkhash,contenthash 。 原因从来没关注过不同环境同一份代码生成的hash有什么不同。直到有个需求，同一份代码在不同环境构建，生成的hash要一样，然而构建后测试发现竟然是不一样的，好神奇，毕竟相同的内容都是通过md5 和hex 生成的hash，然而搜索发现，生成hash 还会带上绝对路径的，也就是说同一份代码，同一环境不同路径最后生成的hash 都是不一样的，更不要说不同系统了。 低级解决办法想要生成一样的hash 可以用同一个构建环境，但是有时候并没有统一的构建环境，又要一样的hash。webpack 提供了接口（v3没有，v4以上才有）,自己提供算法 output.hasFunction 函数返回一个对象，包含两个函数。 update 函数的参数的文件内容 digest 函数返回的内容即是替换[chunkhash] 占位符的内容，注意这里如果返回的是一个固定值，那么每个文件的hash是一样的。 12345678910111213output: &#123; filename: '[name].[chunkhash].bundle.js', path: path.resolve(__dirname, 'dist'), hashFunction: function() &#123; return &#123; update(content) &#123; &#125;, digest(hex) &#123; return hex; &#125; &#125; &#125; &#125; 高级解决办法怎么能每个chunk 根据自己的内容生成 chunkhash ？？？ 参考 https://blog.csdn.net/qq_33594101/article/details/107981866]]></content>
@@ -61,9 +75,9 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JavaScript</tag>
         <tag>原型</tag>
         <tag>继承</tag>
+        <tag>JavaScript</tag>
         <tag>new</tag>
         <tag>instanceof</tag>
       </tags>
