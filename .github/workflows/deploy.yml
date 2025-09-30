@@ -4,7 +4,7 @@ name: Deploy Lv Notes site to Pages
 on:
   workflow_dispatch:
   push:
-    branches: [vp-docs]
+    branches: [master]
 
 # 设置 GITHUB_TOKEN 的权限，以允许部署到 GitHub Pages
 permissions:
