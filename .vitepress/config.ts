@@ -12,6 +12,10 @@ export default defineConfig({
 
     sidebar,
 
+    search: {
+      provider: 'local'
+    },
+
     socialLinks: [
       { icon: 'github', link: 'https://github.com/lvzero535/lvzero535.github.io' }
     ],

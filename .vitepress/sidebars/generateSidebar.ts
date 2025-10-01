@@ -1,13 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { DefaultTheme } from 'vitepress';
-const paths: Record<string, string> = {
-  'frontend': '前端',
-  'framework': '框架',
-  'backend': '后端',
-  'algorithm': '算法'
-}
-function generateSidebar(root: string, dir: string) {
+
+function generateSidebar(paths: Record<string, string>, root: string, dir: string) {
   const files = fs.readdirSync(path.resolve(root, dir));
   const sidebar: DefaultTheme.SidebarItem[] = [{
     text: paths[dir],
@@ -39,10 +34,14 @@ function generateSidebar(root: string, dir: string) {
 }
 
 export default function() {
+  const paths: Record<string, string> = {
+    'frontend': '前端',
+    'framework': '框架',
+    'backend': '后端',
+    'algorithm': '算法'
+  }
   return Object.keys(paths).reduce((acc, dir) => {
-    acc[`/${dir}/`] = generateSidebar(process.cwd(), dir);
+    acc[`/${dir}/`] = generateSidebar(paths, process.cwd(), dir);
     return acc;
   }, {} as Record<string, DefaultTheme.SidebarItem[]>); 
 };
-// console.log(process.cwd());
-// console.log(JSON.stringify(generateSidebar(process.cwd(), 'frontend'), null, 2));
