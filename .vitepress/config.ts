@@ -16,6 +16,7 @@ export default defineConfig({
       provider: 'local'
     },
 
+    outline: [2, 3],
     socialLinks: [
       { icon: 'github', link: 'https://github.com/lvzero535/lvzero535.github.io' }
     ],
