@@ -207,6 +207,131 @@ socket.send(binary.buffer);
 
 - `close()`: 实例对象的close()方法用于关闭连接。
 
+```js
+// 客户端 WebSocket 管理器, 用于管理 WebSocket 连接
+class WebSocketManager {
+  constructor(url, protocols = [], options = {}) {
+    this.url = url;
+    this.protocols = protocols;
+    this.ws = null;
+
+    this.reconnectInterval = options.reconnectInterval || 3000;
+    this.heartbeatInterval = options.heartbeatInterval || 10000;
+    this.heartbeatMsg = options.heartbeatMsg || 'ping';
+    this.heartbeatTimeout = options.heartbeatTimeout || 5000; // 超时等待 pong 的时间
+    this.maxReconnectAttempts = options.maxReconnectAttempts || Infinity;
+
+    this.reconnectAttempts = 0;
+    this.heartbeatTimer = null;
+    this.heartbeatTimeoutTimer = null;
+    this.reconnectTimer = null;
+
+    this.connect();
+  }
+
+  connect() {
+    this.ws = new WebSocket(this.url, this.protocols);
+
+    this.ws.onopen = (event) => {
+      console.log('✅ Connected:', this.url);
+      this.reconnectAttempts = 0;
+      this.startHeartbeat();
+      if (this.onopen) this.onopen(event);
+    };
+
+    this.ws.onmessage = (event) => {
+      // 收到服务端的 pong，清理超时计时器
+      if (event.data === 'pong') {
+        // console.log('❤️ Heartbeat pong received');
+        this.resetHeartbeatTimeout();
+      }
+      if (this.onmessage) this.onmessage(event);
+    };
+
+    this.ws.onerror = (event) => {
+      console.warn('⚠️ WebSocket error:', event);
+      if (this.onerror) this.onerror(event);
+    };
+
+    this.ws.onclose = (event) => {
+      console.log('❌ Closed:', event.code, event.reason);
+      this.stopHeartbeat();
+      if (this.onclose) this.onclose(event);
+      this.reconnect();
+    };
+  }
+
+  startHeartbeat() {
+    this.stopHeartbeat();
+    this.heartbeatTimer = setInterval(() => {
+      if (this.ws.readyState === WebSocket.OPEN) {
+        this.ws.send(this.heartbeatMsg);
+        // console.log('➡️ Heartbeat sent');
+        this.startHeartbeatTimeout(); // 每次发心跳都开启超时检测
+      }
+    }, this.heartbeatInterval);
+  }
+
+  stopHeartbeat() {
+    if (this.heartbeatTimer) {
+      clearInterval(this.heartbeatTimer);
+      this.heartbeatTimer = null;
+    }
+    if (this.heartbeatTimeoutTimer) {
+      clearTimeout(this.heartbeatTimeoutTimer);
+      this.heartbeatTimeoutTimer = null;
+    }
+  }
+
+  startHeartbeatTimeout() {
+    this.resetHeartbeatTimeout();
+    this.heartbeatTimeoutTimer = setTimeout(() => {
+      console.warn('💔 Heartbeat timeout, closing socket');
+      this.ws.close(); // 触发 onclose → reconnect
+    }, this.heartbeatTimeout);
+  }
+
+  resetHeartbeatTimeout() {
+    if (this.heartbeatTimeoutTimer) {
+      clearTimeout(this.heartbeatTimeoutTimer);
+      this.heartbeatTimeoutTimer = null;
+    }
+  }
+
+  reconnect() {
+    if (this.reconnectAttempts >= this.maxReconnectAttempts) {
+      console.log('🚫 Max reconnect attempts reached');
+      return;
+    }
+    if (this.reconnectTimer) return;
+
+    this.reconnectAttempts++;
+    console.log(`🔄 Reconnect attempt #${this.reconnectAttempts}`);
+
+    this.reconnectTimer = setTimeout(() => {
+      this.reconnectTimer = null;
+      this.connect();
+    }, this.reconnectInterval);
+  }
+
+  send(data) {
+    if (this.ws && this.ws.readyState === WebSocket.OPEN) {
+      this.ws.send(data);
+    } else {
+      console.warn('❗ Cannot send, WebSocket not open');
+    }
+  }
+
+  close(code = 1000, reason = 'manual close') {
+    if (this.ws) {
+      this.stopHeartbeat();
+      this.ws.close(code, reason);
+    }
+  }
+}
+
+```
+
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -233,7 +358,7 @@ socket.send(binary.buffer);
     const sendBtn = document.getElementById('sendBtn');
 
     // 连接 Node WebSocket 服务端
-    const ws = new WebSocket('ws://localhost:8080');
+    const ws = new WebSocketManager('ws://localhost:8080');
 
     function log(message) {
       const p = document.createElement('p');
