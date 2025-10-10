@@ -1,6 +1,191 @@
 # 深入理解 TypeScript
 
-地址：https://jkchao.github.io/typescript-book-chinese/
+## 基础类型
+
+- any 
+- number
+- string
+- boolean
+- 数组， const a: number[] 或 const b: Array`<number>`
+- 元组，元组上元素位置的类型是固定的 const a: [string, number]; a = ['2', 1]; 正确 a = [2, '3']; 报错
+
+## 联合类型
+
+联合类型表示一个值可以是几种类型之一。
+
+- 取值可以为多种类型中的一种 const a: string | number;
+- 当类型不确定时，只能是这些类型的公共属性或公共方法
+- 赋值进可以进行类型推断
+  
+```typescript
+const a: string | number;
+a = 'l'; // string
+a.length; // ok
+a = 2; // number
+a.length; // error
+```
+
+## 交叉类型
+
+交叉类型是多个类型合并成一个类型，合成后的类型包含了所有类型的特征，主要用于混入。如`Person & Logger`
+
+```typescript
+interface Person {
+    name: string;
+}
+interface Logger {
+    log (): void;
+}
+type newType = Person & Logger;
+// 上面等于
+interface newType {
+    name: string;
+    log (): void;
+}
+```
+
+## 接口
+
+对象使用接口类型时，对象的属性要和接口的`一致`不能多，除了可选属性其他的不能少.
+可以给接口定义任意类型的属性，但是确定和可选属性必须是任意属性的子类型，定义时满足即可。
+
+```typescript
+interface Person {
+    name:string;
+    age: number;
+    [key: string]: any; // 任意类型，这里不能是string，因为number不是string的子类型
+}
+```
+
+- 接口可以继承接口，且可以继承多个接口
+- 接口也可以继承类，且可以继承多个类，可以和接口混关继承
+
+> 类在声明后，也可以当成类型来使用，这个类型是实例化后对象，即是不包括静态属性和方法还有构造函数，只包含实例的属性和方法
+
+```typescript
+class Point {
+    static a = 'a';
+    static say() {}
+    x: number;
+    y: number;
+    d (): void {};
+    constructor() {}
+  }
+  interface PType {
+    x: number;
+    y: number;
+    d (): void {}; 
+  }
+```
+
+> 作为类型使用时，类Point和接口PType是等价的，所以接口可以继承类，但实际是继承的是Point类实例的类型
+
+## 函数
+
+- 定义函数有声明和表达，调用时参数和定义的必须一样，除了可选参数。
+- 可选参数必须放在最后
+- 参数可以带默认值，带有默认值的参数如果后面没有必填参数可以当做可选参数。
+- 函数可以重载，定义同一名称不同参数类型。重载时，前面只需要定义函数结构，即是不同的参数重载，最后一个实现即可，在匹配时优先匹配前面的。
+
+```typescript
+function reverse(x: number);
+function reverse(x: string);
+function reverse(x: number | string): number | string | void {
+    if (typeof x === 'number') {
+        return Number(x.toString().split('').reverse().join(''));
+    } else if (typeof x === 'string') {
+        return x.split('').reverse().join('');
+    }
+}
+```
+
+## 类
+
+- 只能继承一个类，但可以实现多个接口
+- 构造函数使用private时，不能被new也不能继承
+- readonly时只能在构造函数中赋值
+- 抽象类不能被new只能被继承，子类必须实现基类的抽象方法
+
+## 断言
+
+- 通过as，`值 as 类型；person as Person`
+- 通过`<>` `<类型>值; <Person>person | (<any>window)`在tsx中使用会报错
+- 去掉`null | undefined` `const a: string | null;`使用`a.toString()`时会报错，这里可能是`null`，这里可以使用断言`"!"`去掉`null | undefined`,使用`!`断言后编译器判断当前值不会是`null | undefined`,`a!.toString()`
+
+## 类型别名
+
+类型别名会给一个类型起个新的名字。有时和接口很像，但可以作用于原始值，联合类型，元组以及其他需要手写的类型。
+> 起别名不会新建一个类型，它只是创建了一个新的名字来引用那个类型。类型别名也可以使用泛型。
+**注意**：类型别名不能出现在声明右侧的任何地方。
+
+**和接口的区分**
+
+- 接口会创建一个类型，类型别名不会
+- 接口可以被接口继承和被类实现，类型不行
+
+## 协变与逆变
+
+协变与逆变主要是为了保护类型的安全性。
+
+### 协变
+
+协变是指在变量赋值时，子类型可以赋值给父类型，这是安全的。
+原因是，子类型会包含父类型的所有属性和方法，所以赋值时不会丢失信息。反过来，父类型赋值给子类型时，可能会丢失信息，所以是不安全的。
+
+```typescript
+interface Animal {
+    name: string;
+}
+interface Dog extends Animal {
+    breed: string;
+}
+let animal: Animal = { name: 'Triceratops' };
+let dog: Dog = { name: 'Chase', breed: 'Pit Bull' };
+
+// 这里dog包含了animal的所有属性，所以赋值时不会丢失信息
+animal = dog; // ok
+// 这里animal只包含name属性，所以赋值时不会丢失信息
+// error Property 'breed' is missing in type 'Animal' but required in type 'Dog'.(2741)
+dog = animal; 
+
+```
+
+### 逆变
+
+逆变是指在带有参数的函数赋值时，和变量类型相反，参数是父类型的函数可以赋值给参数是子类型的函数。
+原因是：带有子类型参数的函数`sf`赋值给带有父类型参数的函数`pf`后，当调用`pf`时，传入的参数类型要求是父类型，而`sf`的参数类型是子类型，所以会报错。
+
+```typescript
+interface Person {
+  name: string;
+}
+
+interface Student extends Person {
+  age: number;
+}
+
+type pF = (p: Person) => void;
+type sF = (s: Student) => void;
+
+let pf: pF = (p: Person) => {
+  console.log(p.name);
+};
+
+let sf: sF = (s: Student) => {
+  console.log(s.name);
+  console.log(s.age);
+};
+
+// error
+//Type 'sF' is not assignable to type 'pF'.
+//  Types of parameters 's' and 'p' are incompatible.
+//    Property 'age' is missing in type 'Person' but required in type 'Student'.(2322)
+pf = sf;
+
+// ok
+sf = pf;
+
+```
 
 ## 声明空间
 
@@ -34,6 +219,39 @@ let foo: Foo; // “Foo”表示值，但在此处用作类型。是否指“类
 **注意**
 `class`比较特别，声明`class`时，不仅声明了一个变量，还声明了一个类型。
 
+## 实践操作
+
+### 把数组的值作为联合类型
+
+```typescript
+const arr = ['a', 'b', 'c'] as const // arr为只读， const断言时，只能是字面量
+type abc = typeof arr[number] // 'a' | 'b' | 'c'
+```
+
+### 全局声明一个函数
+
+```typescript
+declare global {
+    function id<T>(val: T): T;
+}
+```
+
+## TS操作符
+
+### ??
+
+空值合并运算符（??）是一个逻辑运算符。当左侧操作数为 null 或 undefined 时，其返回右侧的操作数。否则返回左侧的操作数。
+
+与逻辑或（||）操作符不同，逻辑或会在左操作数为 falsy 值时返回右侧操作数。也就是说，如果你使用 || 来为某些变量设置默认的值时，你可能会遇到意料之外的行为。比如为 falsy 值（’’、NaN 或 0）时。
+
+```typescript
+const foo = null ?? 'default string';
+console.log(foo); // 输出："default string"
+const baz = 0 ?? 42;
+console.log(baz); // 输出：0
+
+```
+
 ## 模块
 
 ### 全局模块
@@ -47,6 +265,23 @@ const foo = 'foo';
 // src/util.ts
 // const foo = 'foo' // 无法重新声明块范围变量“foo”。 
 const bar = foo // 正常
+```
+
+### 扩展模块（包）接口
+
+给第3方包扩展接口时，需要在`declare module '包名'`里扩展。
+如扩展vue3的全局属性`$http`和`$i`
+> vue3不再使用Vue.prototype扩展全局属性，而是使用app.config.globalProperties扩展。
+
+```typescript
+
+import axios from 'axios';
+declare module 'vue' {
+    interface ComponentCustomProperties {
+        $http: typeof axios; // 扩展$http, 可以在组件里使用使用this.$http
+        $i: (key: string) => string; // 扩展$i, 可以在组件里使用使用this.$i
+      }
+}
 ```
 
 ### 文件模块
