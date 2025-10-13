@@ -140,6 +140,23 @@
 > 1. auto: 1 1 auto。
 > 2. none: 0 0 auto。
 
+### flex: 1 & flex: auto
+
+[参考](https://juejin.cn/post/7544008774815744027)
+
+**`flex: 1`**
+
+`flex: 1` 完整的写法是 `flex: 1 1 0%`，这里是flex-grow为1，flex-shrink为1，flex-basis为0%。
+关键是flex-basis为0%，表示子元素的初始尺寸无视自身内容直接从0开始，最终宽度根据flex-grow等分剩余空间。
+
+**`flex: auto`**
+
+`flex: auto` 完整的写法是 `flex: 1 1 auto`，这里是flex-grow为1，flex-shrink为1，flex-basis为auto。
+关键是flex-basis为auto，表示子元素的初始尺寸根据自身内容自适应，如果宽度足够最终宽度根据flex-grow等分剩余空间，否则会超出父元素的宽度。
+
+> 1. flex: 1 表示项目将等分剩余空间。
+> 2. flex: auto 表示项目将根据内容大小自动调整空间。
+
 
 
 ### align-self
