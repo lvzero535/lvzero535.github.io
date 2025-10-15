@@ -1,7 +1,8 @@
 # JS原型，继承，new和instanceof的实现
 
 ## 原型
-`JS`里万物皆对象，而对象是由构造函数创建的。基本数据类型都有与之对应的构造函数。如`number` 对应的是`Number`，当你定义一个变量并存储一种数据类型时（变量没有类型，数据有类型），会有相应的数据类型的方法，这些方法从哪里来？其实就是从原型来的。
+
+`JS`里万物皆对象，而**对象是由构造函数创建的**。基本数据类型都有与之对应的构造函数。如`number` 对应的是`Number`，当你定义一个变量并存储一种数据类型时（变量没有类型，数据有类型），会有相应的数据类型的方法，这些方法从哪里来？其实就是从原型来的。
 
 ```javascript
 var a = 1; // 定义一个数字型
@@ -14,8 +15,7 @@ a.toPrecision(3)  // Number.prototype.toPrecision
 ```
 
 
-
-每个对象在创建时内部都有一个内置属性`[[Prototype]]` 指向原型，在浏览器中可以用`__proto__`来表示（注意这个不是标准属性，有些浏览器不存在此属性），这个原型是指构造函数中的`Function.prototype` ，也就是同一个构造函数创建的实例对象都有同样的原型，原型对象中的方法和属性是所有实例对象所共有的。原型中有一个属性是指向构造函数的`Function.prototype.constructor === Function`
+每个对象在创建时内部都有一个内置属性`[[Prototype]]` 指向原型，在浏览器中可以用`__proto__`来表示（注意这个不是标准属性，有些浏览器不存在此属性），这个原型是指构造函数(`F`)中的`F.prototype` ，也就是同一个构造函数创建的实例对象都有同样的原型，原型对象中的方法和属性是所有实例对象所共有的。原型中有一个属性是指向构造函数的`F.prototype.constructor === F`
 
 ```javascript
 function Person(name) {
@@ -28,8 +28,6 @@ p.__proto__ .constructor === Person // true
 p.__proto__ === p1.__proto__ // true
 
 ```
-
-
 
 **原型是可以修改的。**
 
@@ -50,15 +48,11 @@ p.__proto__ === p1.__proto__ // true
 
 前面说过了，在创建对象过程中，对象有个内部属性指向构造函数的原型，这个过程在后面说，具体就是`obj.__proto__ = Object.prototype` 。这个原型上有些方法。
 
-
-
 当`obj.val` 取值时，发现当前对象，没有这个属性，它会找到原型，看下原型有没有这个属性，如有就返回这个属性，没用就继续往原型的原型上找，直到没有原型为止，如果一直找不到这个属性就会返回`undefined` 。方法也是如此。
 
 如`valueOf` 方法，不在`obj`对象上，去原型`obj.__proto__`上找，也就是指向的`Object.prototype`
 
 这个对象上有`valueOf`方法，调用。如果这个对象没有，而这个对象的原型是`null` 没有，就是返回`undefined` 这就是经常的报错 `undefined is not function`。
-
-
 
 给对象的属性赋值时，属性存在正常赋值，如果属性不存在，它不会往它的原型链上找。也就是说，当给对象属性赋值时，在当前对象找，找到一 直接赋值，找不到直接就创建一个新的属性了，不会往原型链上找到赋值，这也是可以理解的，整条原型链，如果这样操作，所有创建的属性都往最顶级的原型去，那不是很大很大？
 
@@ -84,10 +78,41 @@ obj.__proto__ == Object.prototype  // true
 
 （作用域链，其实就是变量的寻找过程，和这个原型链类似）
 
+**两条原型链**
+
+- 一条是函数的原型链，指向`Function.prototype` 。
+
+> 函数本向也是对象，它的原型链也指向`Function.prototype` 。
+
+```js
+function F() {}
+F.__proto__ === Function.prototype // true
+
+const obj = new F()
+obj.__proto__ === F.prototype // true
+obj.__proto__.__proto__ === Object.prototype // true
+obj.__proto__ !== Function.prototype // true
+```
+
+- 一条是对象的原型链，指向`Object.prototype` 。
+
+![two-prototype](./images/two-prototype.png)
+
+```js
+Function.prototype.a = 1;
+Object.prototype.b = 2;
+function F() {}
+const f = new F();
+
+console.log(F.a); // 1
+console.log(F.b); // 2 
+console.log(f.a); // undefined
+console.log(f.b); // 2 
+```
+
 ## 继承
 
 什么是继承？前面说了，原型是可以修改的，就是在创建对象的时候，把带有公共属性的对象指向创建对象的原型，这样新对象就可以继承原型对象上的方法或属性了，继承就是通过原型链的形式来实现。
-
 
 
 继承有好几种方式可以实现，每种方式都各有优缺点，这里就不说了，网上很多，这里附上两个不错的地址。
