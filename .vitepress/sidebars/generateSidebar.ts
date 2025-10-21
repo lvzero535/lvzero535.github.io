@@ -33,13 +33,7 @@ function generateSidebar(paths: Record<string, string>, root: string, dir: strin
   return sidebar;
 }
 
-export default function() {
-  const paths: Record<string, string> = {
-    'frontend': '前端',
-    'framework': '框架',
-    'backend': '后端',
-    'algorithm': '算法'
-  }
+export default function(paths: Record<string, string>) {
   return Object.keys(paths).reduce((acc, dir) => {
     acc[`/${dir}/`] = generateSidebar(paths, process.cwd(), dir);
     return acc;

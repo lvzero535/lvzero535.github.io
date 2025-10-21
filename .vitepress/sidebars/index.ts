@@ -3,7 +3,24 @@
 import { DefaultTheme } from 'vitepress';
 import generateSidebar from './generateSidebar';
 
-export const sidebar: DefaultTheme.Sidebar = generateSidebar();
+const paths: Record<string, string> = {
+  'frontend': '前端',
+  'framework': '框架',
+  'backend': '后端',
+  'interview': '面试',
+  'algorithm': '算法'
+}
+
+export const sidebar: DefaultTheme.Sidebar = generateSidebar(paths);
+
+export const nav: DefaultTheme.NavItem[] = [
+  { text: '世界', link: '/' },
+  { text: '前端', link: getFirstLink(sidebar, '/frontend/') },
+  { text: '框架', link: getFirstLink(sidebar, '/framework/') },
+  { text: '后端', link: getFirstLink(sidebar, '/backend/') },
+  { text: '面试', link: getFirstLink(sidebar, '/interview/') },
+  // { text: '算法', link: '/algorithm/' },
+];
 
 function getFirstLink(sidebar: DefaultTheme.SidebarMulti, path: string): string {
   const items = sidebar[path] as DefaultTheme.SidebarItem[];
@@ -12,15 +29,6 @@ function getFirstLink(sidebar: DefaultTheme.SidebarMulti, path: string): string 
   }
   return '';
 }
-
-
-export const nav: DefaultTheme.NavItem[] = [
-  { text: '世界', link: '/' },
-  { text: '前端', link: getFirstLink(sidebar, '/frontend/') },
-  { text: '框架', link: getFirstLink(sidebar, '/framework/') },
-  { text: '后端', link: getFirstLink(sidebar, '/backend/') },
-  // { text: '算法', link: '/algorithm/' },
-];
 
 
 // export const sidebar: DefaultTheme.Sidebar = {
