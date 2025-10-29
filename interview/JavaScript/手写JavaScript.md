@@ -105,3 +105,18 @@ function newFn(Fn, ...args) {
   return obj;
 }
 ```
+
+## 6. 柯理化函数
+
+```js
+function curry(fn) {
+  return function curried (...args) {
+    if (args.length >= fn.length) {
+      return fn.apply(this, args);
+    }
+    return function (...newArgs) {
+      return curried(...args, ...newArgs);
+    }
+  }
+}
+```
