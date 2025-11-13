@@ -120,3 +120,44 @@ function curry(fn) {
   }
 }
 ```
+
+## 7. 深拷贝
+
+```js
+
+function deepClone(obj, hash = new WeakMap()) {
+  if (obj === null || typeof obj !== 'object') return obj;
+
+  if (hash.has(obj)) return hash.get(obj);
+
+  if (obj instanceof Date) return new Date(obj);
+  if (obj instanceof RegExp) return new RegExp(obj.source, obj.flags);
+  if (obj instanceof Map) {
+    const map = new Map();
+    hash.set(obj, map);
+    for(const [key, value] of obj.entries()) {
+      map.set(deepClone(key, hash), deepClone(value, hash));
+    }
+    return map;
+  }
+  if (obj instanceof Set) {
+    const set = new Set();
+    hash.set(obj, set);
+    for(const value of obj.values()) {
+      set.add(deepClone(value, hash));
+    }
+    return set;
+  }
+
+  const cloneObj = Array.isArray(obj) ? [] : Object.create(Object.getPrototypeOf(obj));
+
+  hash.set(obj, cloneObj);
+
+  for(const key of Reflect.ownKeys(obj)) {
+    cloneObj[key] = deepClone(obj[key], hash);
+  }
+  
+  return cloneObj;
+}
+
+```
